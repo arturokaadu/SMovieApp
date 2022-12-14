@@ -45,9 +45,11 @@ export const Header = (favs) => {
               )}
             </li>
             <li className="nav-item">
+            {favs.favs.length > 0 && (
               <span className="nav-link disabled text-success">
                 Peliculas en Favoritos: {favs.favs.length}
               </span>
+            )}
             </li>
           </ul>
         </div>
@@ -57,12 +59,3 @@ export const Header = (favs) => {
   );
 };
 
-<header>
-  <nav>
-    <ul>
-      <li></li>
-      <li></li>
-      <li></li>
-    </ul>
-  </nav>
-</header>;
