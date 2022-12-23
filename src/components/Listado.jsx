@@ -8,7 +8,7 @@ import axios from "axios";
 export const Listado = ({ addOrRemoveFromFavorites, movieDat }) => {
   const navigate = useNavigate();
   let getToken = sessionStorage.getItem("token");
-/* 
+  /* 
   const [moviesList, setmoviesList] = useState([]);
 
   useEffect(() => {
@@ -26,13 +26,26 @@ export const Listado = ({ addOrRemoveFromFavorites, movieDat }) => {
       });
   }, [setmoviesList]);
    */
-  
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostPerPage] = useState(4);
+
+  const lasPostIndex = currentPage * postsPerPage;
+  const firstPostIndex = lasPostIndex - postsPerPage;
+  const currentPost = movieDat.slice(firstPostIndex, lasPostIndex);
+
+  console.log(currentPost);
+
+  const paging = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+
   return (
     <>
       {!getToken && <Navigate to="/" />}
 
       <div className="row">
-        {movieDat.map((e, index) => {
+        {currentPost.map((e, index) => {
           const movieData = {
             imgURL: `https://image.tmdb.org/t/p/w500/${e.poster_path}`,
             overview: e.overview,
@@ -69,7 +82,11 @@ export const Listado = ({ addOrRemoveFromFavorites, movieDat }) => {
             </div>
           );
         })}
-       
+        <Pagination
+          totalPosts={movieDat.length}
+          postsPerPage={postsPerPage}
+          paging={paging}
+        />
       </div>
     </>
   );

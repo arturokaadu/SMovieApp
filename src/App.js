@@ -18,8 +18,7 @@ const App = () => {
   const [favs, setFavs] = useState([]);
   const [movieDat, setMovieDat] = useState([]);
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [ postsPerPage, setPostPerPage] = useState(8);
+
   useEffect( () => {
     const favsInLocal = localStorage.getItem("favs");
 
@@ -79,11 +78,7 @@ const App = () => {
     }
   };
 
-  const lasPostIndex = currentPage * postsPerPage
-  const firstPostIndex = lasPostIndex - postsPerPage;
-  const currentPost = movieDat.slice(firstPostIndex, lasPostIndex)
 
- console.log(currentPost);
   
   return (
     <>
@@ -96,7 +91,7 @@ const App = () => {
             exact
             path="/listado"
             element={
-              <Listado movieDat={currentPost}  addOrRemoveFromFavorites={addOrRemoveFromFavorites} />
+              <Listado movieDat={movieDat}  addOrRemoveFromFavorites={addOrRemoveFromFavorites} />
             }
           />
           <Route exact path="/detalle" element={<Detalle />} />
@@ -112,7 +107,6 @@ const App = () => {
             }
           />
         </Routes>
-        <Pagination totalPosts={movieDat.length} postsPerPage={postsPerPage} setCurrentPage={setCurrentPage}/>
         <Footer />
       </div>
     </>

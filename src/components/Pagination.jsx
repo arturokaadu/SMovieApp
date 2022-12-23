@@ -5,7 +5,7 @@ import styles from '../css/pagination.module.css';
 
 export default function Pagination({
   
-totalPosts, postsPerPage, setCurrentPage
+totalPosts, postsPerPage, paging
 }) {
   const pageNumbers = [];
 
@@ -22,7 +22,7 @@ totalPosts, postsPerPage, setCurrentPage
       
         {pageNumbers?.map((number,index) => (
          <div className="number" key={number}>
-                     <button key={index} className={styles.btn} onClick={() => setCurrentPage(number)}>{number}</button>
+                     <button key={index} className={styles.btn} onClick={() => paging(number)}>{number}</button>
           
           </div>
         ))
