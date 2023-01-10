@@ -4,6 +4,7 @@ import { Navigate } from "react-router-dom";
 import swal from "@sweetalert/with-react";
 import Pagination from "./Pagination";
 import axios from "axios";
+//import {Collapse} from bootstrap
 
 export const Listado = ({ addOrRemoveFromFavorites, movieDat }) => {
   const navigate = useNavigate();
@@ -39,6 +40,17 @@ export const Listado = ({ addOrRemoveFromFavorites, movieDat }) => {
     setCurrentPage(pageNumber);
   };
 
+  const [show, setshow] = useState(true);
+
+  const [showContent, setShowContent] = useState([]);
+
+  const handleToggleContent = (index) => {
+    setShowContent((prevShowContent) => {
+      const newShowContent = [...prevShowContent];
+      newShowContent[index] = !newShowContent[index];
+      return newShowContent;
+    });
+  };
 
   return (
     <>
@@ -58,7 +70,7 @@ export const Listado = ({ addOrRemoveFromFavorites, movieDat }) => {
               <div className="card my-4">
                 <img
                   src={`https://image.tmdb.org/t/p/w500/${e.poster_path}`}
-                  className="card-img-top"
+                  className="cardImg"
                   alt="..."
                 />
                 <button
@@ -68,11 +80,23 @@ export const Listado = ({ addOrRemoveFromFavorites, movieDat }) => {
                 >
                   🖤
                 </button>
-                <div className="card-body">
+                <div className="cardBody">
                   <h5 className="card-title">{e.title}</h5>
-                  <p className="card-text">{e.overview}</p>
+
+                  <div className="d-flex justify-content-center">
+                    <button
+                      className="btn btn-primary "
+                      onClick={() => handleToggleContent(index)}
+                    >
+                      {showContent[index] ? "ocultar" : "Mostrar Sinopsis"}
+
+                      <div>
+                        {showContent[index] && <span>{e.overview}</span>}
+                      </div>
+                    </button>
+                  </div>
                   <Link
-                    className="btn btn-primary"
+                    className="btn btn-primary mt-2 d-flex justify-content-center"
                     to={`/detalle?MovieID=${e.id}`}
                   >
                     Detail{" "}
