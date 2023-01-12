@@ -1,37 +1,90 @@
 /* body {
     background-color: rgb(199, 131, 108);
 } */
+@import url("https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Montserrat+Alternates&family=Montserrat:wght@300&family=Ubuntu&display=swap");
 
+.favourite-btn {
+  width: 30px;
+  height: 30px;
+  background-color: aliceblue;
+  display: flex;
+  justify-content: center;
+  border-radius: 30px;
+  align-items: center;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  border: none;
+  font-size: 15px;
+}
+.card {
+  overflow: auto;
+  border: 1px solid rgb(3, 3, 3); /* this is the default border */
+  transition: all 0.2s ease-in-out; /* this allows the border to transition smoothly */
+  
+}
 
-.favourite-btn{
-    width: 30px;
-    height: 30px;
-    background-color: aliceblue;
+.card-body{
+    overflow: auto;
+    
+}
+
+.card:hover {
+  border: 3px solid rgb(19, 19, 19); /* this sets the border to yellow when the card is hovered */
+  box-shadow: 0 0 10px rgb(255, 255, 3); /* this adds a yellow shadow */
+}
+
+.card-text {
+  font-size: 19px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.cardImg {
+  width: 100%;
+  height: 32rem;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-title {
+  font-family: "Montserrat", sans-serif;
+  font-size: 17px;
+  font-weight: bolder;
+  height: 50px;
+}
+
+/* .btn {
+  width: fit-content;
+} */
+
+.btn-primary {
+  background-color: #333;
+  color: #fff;
+  border-radius: 25px;
+  text-transform: capitalize;
+}
+
+body {
+  background: rgb(34, 63, 88);
+  background: linear-gradient(
+    90deg,
+    rgba(34, 63, 88, 1) 0%,
+    rgba(2, 0, 36, 1) 9%,
+    rgba(17, 38, 43, 1) 20%,
+    rgba(23, 80, 129, 1) 54%,
+    rgba(38, 67, 93, 1) 58%,
+    rgba(13, 13, 13, 1) 91%,
+    rgba(27, 58, 64, 1) 100%,
+    rgba(26, 111, 139, 1) 100%
+  );
+}
+
+.paginate{
     display: flex;
-    justify-content: center;
-    border-radius: 30px;
-    align-items: center;
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    border: none;
-    font-size: 15px;
-
-}
-
-.card-text{
-    font-size:19px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-.cardBody{
-    width: 18rem;
-    height: 10rem;
-}
-
-.cardImg{
-    width: 100%;
-    height: 29rem;
 }

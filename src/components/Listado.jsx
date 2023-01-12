@@ -1,32 +1,20 @@
-import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { useState } from "react";
 import { Navigate } from "react-router-dom";
-import swal from "@sweetalert/with-react";
+//import swal from "@sweetalert/with-react";
 import Pagination from "./Pagination";
-import axios from "axios";
+import { HeartSwitch } from "@anatoliygatt/heart-switch";
 //import {Collapse} from bootstrap
 
-export const Listado = ({ addOrRemoveFromFavorites, movieDat }) => {
-  const navigate = useNavigate();
+export const Listado = ({
+  addOrRemoveFromFavorites,
+  favs,
+  movieDat,
+  checked,
+  showContent, handleToggleContent
+}) => {
   let getToken = sessionStorage.getItem("token");
-  /* 
-  const [moviesList, setmoviesList] = useState([]);
 
-  useEffect(() => {
-    const endPoint =
-      "https://api.themoviedb.org/3/discover/movie?api_key=2bda57bf0144e50a24fef4fbd75dcde8&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate";
-    axios
-      .get(endPoint)
-      
-      .then((response) => {
-        const apiData = response.data;
-        setmoviesList(apiData.results);
-      })
-      .catch((error) => {
-        swal(<h5> Error, try again later</h5>);
-      });
-  }, [setmoviesList]);
-   */
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostPerPage] = useState(4);
 
@@ -40,17 +28,7 @@ export const Listado = ({ addOrRemoveFromFavorites, movieDat }) => {
     setCurrentPage(pageNumber);
   };
 
-  const [show, setshow] = useState(true);
 
-  const [showContent, setShowContent] = useState([]);
-
-  const handleToggleContent = (index) => {
-    setShowContent((prevShowContent) => {
-      const newShowContent = [...prevShowContent];
-      newShowContent[index] = !newShowContent[index];
-      return newShowContent;
-    });
-  };
 
   return (
     <>
@@ -67,25 +45,26 @@ export const Listado = ({ addOrRemoveFromFavorites, movieDat }) => {
 
           return (
             <div className="col-3" key={index}>
-              <div className="card my-4">
+              <div className="card text-white bg-dark my-4">
                 <img
                   src={`https://image.tmdb.org/t/p/w500/${e.poster_path}`}
                   className="cardImg"
                   alt="..."
                 />
-                <button
+                <HeartSwitch
                   className="favourite-btn"
                   data-movie-id={e.id}
                   onClick={addOrRemoveFromFavorites(movieData)}
-                >
-                  🖤
-                </button>
-                <div className="cardBody">
-                  <h5 className="card-title">{e.title}</h5>
+                  checked={favs.find((fav) => fav.id === e.id) ? true : false}
+                />
+                <div className="card-body ">
+                  <span className="card-title text-center d-flex justify-content-center">
+                    {e.title}
+                  </span>
 
                   <div className="d-flex justify-content-center">
                     <button
-                      className="btn btn-primary "
+                      className="btn btn-info bg-dark  text-white"
                       onClick={() => handleToggleContent(index)}
                     >
                       {showContent[index] ? "ocultar" : "Mostrar Sinopsis"}
@@ -95,22 +74,26 @@ export const Listado = ({ addOrRemoveFromFavorites, movieDat }) => {
                       </div>
                     </button>
                   </div>
-                  <Link
-                    className="btn btn-primary mt-2 d-flex justify-content-center"
-                    to={`/detalle?MovieID=${e.id}`}
-                  >
-                    Detail{" "}
-                  </Link>
+                  <div className="d-flex mt-2 justify-content-center">
+                    <Link
+                      className="btn btn-info btn btn-info bg-dark  text-white mt-2 d-flex justify-content-center"
+                      to={`/detalle?MovieID=${e.id}`}
+                    >
+                      Detail{" "}
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
           );
         })}
-        <Pagination
-          totalPosts={movieDat.length}
-          postsPerPage={postsPerPage}
-          paging={paging}
-        />
+        <div className=" d-flex justify-content-center mt-5">
+          <Pagination
+            totalPosts={movieDat.length}
+            postsPerPage={postsPerPage}
+            paging={paging}
+          />
+        </div>
       </div>
     </>
   );
