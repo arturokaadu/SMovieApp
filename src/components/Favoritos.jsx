@@ -7,7 +7,7 @@ export const Favoritos = ({ addOrRemoveFromFavorites, favs,showContent, handleTo
 
   let token = sessionStorage.getItem('token');
 
-
+//console.log(favs);
   return (
     
 
@@ -20,6 +20,9 @@ export const Favoritos = ({ addOrRemoveFromFavorites, favs,showContent, handleTo
             overview: e.overview,
             title: e.title,
             id: e.id,
+            vote_average: e.vote_average
+
+          
           };
 
           return (
@@ -30,12 +33,15 @@ export const Favoritos = ({ addOrRemoveFromFavorites, favs,showContent, handleTo
                   className="cardImg"
                   alt="..."
                 />
+              <div className="d-flex justify-content-between mr-2">
                 <HeartSwitch
                   className="favourite-btn"
                   data-movie-id={e.id}
                   onClick={addOrRemoveFromFavorites(movieData)}
                   checked={favs.find((fav) => fav.id === e.id) ? true : false}
                 />
+                <span className="vote-average d-flex align-items-center justify-content-center">{e.vote_average}</span>
+                </div>
                 <div className="card-body ">
                   <span className="card-title text-center d-flex justify-content-center">
                     {e.title}

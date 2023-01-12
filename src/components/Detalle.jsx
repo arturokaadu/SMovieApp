@@ -9,7 +9,7 @@ export const Detalle = () => {
   //back here if it sets on fire MovieID
   let movieID = query.get("MovieID");
 
-  console.log(movieID);
+  //console.log(movieID);
 
   // investigate why null
   const [details, setDetails] = useState(null);

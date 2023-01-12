@@ -88,3 +88,25 @@ body {
 .paginate{
     display: flex;
 }
+
+.vote-average {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: gold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: white;
+  transition: all 0.2s;
+}
+
+/* .vote-average:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 10px gold;
+}
+
+.ml-3 {
+  margin-left: 1rem !important;
+} */

@@ -22,7 +22,7 @@ export const Listado = ({
   const firstPostIndex = lasPostIndex - postsPerPage;
   const currentPost = movieDat.slice(firstPostIndex, lasPostIndex);
 
-  console.log(currentPost);
+  //console.log(currentPost);
 
   const paging = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -41,6 +41,7 @@ export const Listado = ({
             overview: e.overview,
             title: e.title,
             id: e.id,
+            vote_average: e.vote_average
           };
 
           return (
@@ -51,12 +52,15 @@ export const Listado = ({
                   className="cardImg"
                   alt="..."
                 />
+                <div className="d-flex justify-content-between mr-2">
                 <HeartSwitch
                   className="favourite-btn"
                   data-movie-id={e.id}
                   onClick={addOrRemoveFromFavorites(movieData)}
                   checked={favs.find((fav) => fav.id === e.id) ? true : false}
                 />
+                <span className="vote-average d-flex align-items-center justify-content-center">{e.vote_average}</span>
+                </div>
                 <div className="card-body ">
                   <span className="card-title text-center d-flex justify-content-center">
                     {e.title}

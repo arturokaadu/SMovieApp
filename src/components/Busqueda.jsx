@@ -8,7 +8,7 @@ export const Busqueda = () => {
     e.preventDefault();
     //trim so that it eliminates spaces on search
     const keyword = e.currentTarget.keyword.value.trim();
-    console.log(keyword);
+    //console.log(keyword);
     if (keyword.length < 2) {
       swal("You must write a keyword");
     } else {

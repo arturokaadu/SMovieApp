@@ -28,7 +28,7 @@ export const Login = () => {
       .post("http://challenge-react.alkemy.org", { email, password })
       .then((res) => {
         swal(<h5>Login Succesfull</h5>);
-        console.log(res.data);
+        //console.log(res.data);
         const tokenRecieved = res.data.token;
         sessionStorage.setItem("token", tokenRecieved);
         //localStorage.setItem('nombre', 'Artur')
