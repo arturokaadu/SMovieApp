@@ -28,7 +28,7 @@ export const Detalle = () => {
       console.log(error);
     });
   }, [movieID]);
-  
+  console.log(details);
   return (
     <>
       {!getToken && <Navigate to="/" />}
@@ -39,14 +39,14 @@ export const Detalle = () => {
             <div className="col-4">
               <img
                 src={
-                  details.poster_path ?
+                  details.poster_path !== `https://image.tmdb.org/t/p/w500/null` ?
                      `https://image.tmdb.org/t/p/w500/${details.poster_path}`
                  : defaultImage
                 }
                 onError={(e) => {e.target.src = defaultImage}} 
                 className="img-fluid mr-5"
                 alt="poster"
-              />
+                />
             </div>
             <div className="col-8">
               <h2>{details.title}</h2>

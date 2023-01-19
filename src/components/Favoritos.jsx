@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import { HeartSwitch } from "@anatoliygatt/heart-switch";
+import defaultImage from '../Assets/default.jpg'
 
 export const Favoritos = ({ addOrRemoveFromFavorites, favs,showContent, handleToggleContent }) => {
 
@@ -29,7 +30,7 @@ export const Favoritos = ({ addOrRemoveFromFavorites, favs,showContent, handleTo
             <div className="col-3" key={index}>
               <div className="card text-white bg-dark my-4">
                 <img
-                  src={`${e.imgURL}`}
+                  src={`${e.imgURL != `https://image.tmdb.org/t/p/w500/null` ? e.imgURL : defaultImage}`}
                   className="cardImg"
                   alt="..."
                 />
