@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import swal from "@sweetalert/with-react";
 import { useNavigate } from "react-router-dom";
 import { HeartSwitch } from "@anatoliygatt/heart-switch";
+import defaultImage from '../Assets/default.jpg'
 
 export const Resultados = ({addOrRemoveFromFavorites, favs,showContent, handleToggleContent}) => {
   let query = new URLSearchParams(window.location.search);
@@ -33,9 +34,9 @@ export const Resultados = ({addOrRemoveFromFavorites, favs,showContent, handleTo
   // let endpoint = https://api.themoviedb.org/3/search/company?api_key=2bda57bf0144e50a24fef4fbd75dcde8&page=1&query=
   return (
     <>
-      <h2>results for: {keyword}</h2>
-      {moviesResults.length}
-      <div className="row">
+      <h2 className="d-flex align-items-center justify-content-center text-center mt-3">results for: {keyword}</h2>
+{/*       {moviesResults.length}
+ */}      <div className="row">
       {moviesResults.map((e, index) => {
           const movieData = {
             imgURL: `https://image.tmdb.org/t/p/w500/${e.poster_path}`,
@@ -48,10 +49,11 @@ export const Resultados = ({addOrRemoveFromFavorites, favs,showContent, handleTo
             <div className="col-3" key={index}>
               <div className="card text-white bg-dark my-4">
                 <img
-                  src={`${movieData.imgURL}`}
+                  src={`${movieData.imgURL !== `https://image.tmdb.org/t/p/w500/null` ? movieData.imgURL : defaultImage}`}
                   className="cardImg"
                   alt="..."
                 />
+                {console.log(movieData.imgURL)}
                <div className="d-flex justify-content-between mr-2">
                 <HeartSwitch
                   className="favourite-btn"

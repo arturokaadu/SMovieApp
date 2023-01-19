@@ -110,8 +110,13 @@ const App = () => {
               />
             }
           />
-          <Route exact path="/detalle" element={<Detalle />} />
-          <Route exact path="/resultados" element={<Resultados />} />
+          <Route exact path="/detalle" element={<Detalle favs={favs}
+                addOrRemoveFromFavorites={addOrRemoveFromFavorites}
+                showContent={showContent} handleToggleContent={handleToggleContent}/>} />
+          <Route   exact path="/resultados" element={<Resultados favs={favs}
+                movieDat={movieDat}
+                addOrRemoveFromFavorites={addOrRemoveFromFavorites}
+                showContent={showContent} handleToggleContent={handleToggleContent}/>} />
           <Route
             exact
             path="/favoritos"

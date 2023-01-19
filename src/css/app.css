@@ -110,3 +110,34 @@ body {
 .ml-3 {
   margin-left: 1rem !important;
 } */
+
+
+h2{
+  font-family: "Montserrat", sans-serif;
+  color: aliceblue;
+  font-weight: bolder;
+}
+
+h5{
+  font-family: "Montserrat", sans-serif;
+  color: aliceblue;
+  font-weight: bolder;
+  
+}
+
+p{
+  font-family: "Montserrat", sans-serif;
+  color: aliceblue;
+  font-weight: bolder;
+
+}
+
+.genre-btn {
+  background-color: #1c1c1c;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 16px;
+  margin-right: 8px;
+}
