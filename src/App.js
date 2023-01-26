@@ -1,5 +1,6 @@
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { Register } from "./components/Register";
 import { Login } from "./components/Login";
 import { Listado } from "./components/Listado";
 import { Header } from "./components/Header";
@@ -11,16 +12,20 @@ import { Navigate } from "react-router-dom";
 import swal from "@sweetalert/with-react";
 import axios from "axios";
 import Pagination from "./components/Pagination";
+import { AuthProvider } from "./components/Context/authContext";
 // Styles
 import "./css/app.css";
 import "./css/bootstrap.min.css";
+import { ProtectedRoute } from "./components/ProtectedRoute";
+import { useAuth } from "./components/Context/authContext";
 const App = () => {
   const [favs, setFavs] = useState([]);
   const [movieDat, setMovieDat] = useState([]);
   const [checked, setChecked] = useState(false);
-
+  const {user, loading} = useAuth()
+//console.log({user} = useAuth());
   const [showContent, setShowContent] = useState([]);
-
+ //const { user} = useAuth();
   const handleToggleContent = (index) => {
     setShowContent((prevShowContent) => {
       const newShowContent = [...prevShowContent];
@@ -44,17 +49,27 @@ const App = () => {
       .catch((error) => {
         swal(<h5> Error, try again later</h5>);
       });
-
-    if (favsInLocal !== null) {
-      const favsArr = JSON.parse(favsInLocal);
-
-      setFavs(favsArr);
-    }
-  }, []);
+      if (!loading) {
+        if (user) {
+          // User is logged in, get their favorites from local storage
+          const favsInLocal = localStorage.getItem('favs');
+          if (favsInLocal !== null) {
+            const favsArr = JSON.parse(favsInLocal);
+            setFavs(favsArr);
+          }
+        } else {
+          // User is logged out, clear the favorites from local storage
+          //localStorage.removeItem('favs');
+          setFavs([]);
+        }
+      }
+  }, [user,loading]);
 
   const navigate = useNavigate();
 
+
   const addOrRemoveFromFavorites = (movieData) => (e) => {
+
     const favMovies = localStorage.getItem("favs");
     let tempMovie;
 
@@ -88,26 +103,35 @@ const App = () => {
       localStorage.removeItem("favId");
       console.log("movie deleted");
       setChecked(false);
+        if (!user) {
+        localStorage.removeItem("favs");
+        setFavs([]);
+      }  
     }
   };
 
   return (
     <>
       <div>
+        <AuthProvider>
         <Header favs={favs} />
 
         <Routes>
-          <Route exact path="/" element={<Login />} />
+          <Route exact
+            path="/register" element={<Register/>} />
+          <Route exact path="/login" element={<Login />} />
           <Route
             exact
             path="/listado"
             element={
+           
               <Listado
                 favs={favs}
                 movieDat={movieDat}
                 addOrRemoveFromFavorites={addOrRemoveFromFavorites}
                 showContent={showContent} handleToggleContent={handleToggleContent}
               />
+              
             }
           />
           <Route exact path="/detalle" element={<Detalle favs={favs}
@@ -129,6 +153,7 @@ const App = () => {
             }
           />
         </Routes>
+        </AuthProvider>
         {/*  <Footer /> */}
       </div>
     </>

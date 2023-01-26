@@ -31,7 +31,7 @@ export const Detalle = () => {
   console.log(details);
   return (
     <>
-      {!getToken && <Navigate to="/" />}
+{/*       {!getToken && <Navigate to="/" />} */}
       {!details && <p>Loading...</p>}
       {details && (
         <>

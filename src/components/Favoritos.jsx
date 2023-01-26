@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import { HeartSwitch } from "@anatoliygatt/heart-switch";
 import defaultImage from '../Assets/default.jpg'
-
+import { useAuth} from "./Context/authContext";
 export const Favoritos = ({ addOrRemoveFromFavorites, favs,showContent, handleToggleContent }) => {
-
+  const { user } = useAuth();
   let token = sessionStorage.getItem('token');
 
 //console.log(favs);
@@ -13,7 +13,7 @@ export const Favoritos = ({ addOrRemoveFromFavorites, favs,showContent, handleTo
     
 
     <div className="row">
-    {!token && <Navigate to="/" />}
+{/*     {!token && <Navigate to="/" />} */}
       {!favs.length && <div className="col-12 text-danger">No hay nada en favoritos</div>}
         {favs.map((e, index) => {
           const movieData = {

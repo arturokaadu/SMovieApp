@@ -1,41 +1,29 @@
 import axios from "axios";
 import swal from "@sweetalert/with-react";
-
+import { useState } from "react";
+import { useAuth } from "./Context/authContext";
 import { useNavigate } from "react-router-dom";
-import { Navigate } from "react-router-dom";
+import { async } from "@firebase/util";
 export const Login = () => {
-  const navigate = useNavigate();
-  swal();
+  const navigate = useNavigate()
+
+
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const email = e.target.email.value;
-    const password = e.target.password.value;
-    if (email === "" || password === "") {
-      swal(<h5>Fields cannot be empty</h5>);
-      return;
+
+    e.preventDefault()
+    setError('');
+    try {
+      await login(user.email,user.password).then(() => {
+        navigate('/listado')      })
+    } catch (error) {
+      setError(error.message)
     }
-    if (email !== "" && !validateMail(email)) {
-      swal(<h5>Escribe una direccion valida</h5>);
-    }
+       
 
-    if (email !== "challenge@alkemy.org" || password !== "react") {
-      swal(<h5>Credentials are not valid</h5>);
+  } 
 
-      return;
-    }
-
-    axios
-      .post("http://challenge-react.alkemy.org", { email, password })
-      .then((res) => {
-        swal(<h5>Login Succesfull</h5>);
-        //console.log(res.data);
-        const tokenRecieved = res.data.token;
-        sessionStorage.setItem("token", tokenRecieved);
-        //localStorage.setItem('nombre', 'Artur')
-        navigate("/listado");
-      });
-  };
-
+  
+ 
   function validateMail(email) {
     return /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
       email
@@ -43,10 +31,26 @@ export const Login = () => {
   }
 
   let token = sessionStorage.getItem("token");
+  const [error, setError] = useState("");
+
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+    username: "",
+    confirmPassword: "",
+  });
+
+  const {login} = useAuth();
+
+  const handleChange = ({ target: { name, value } }) => {
+    setUser({ ...user, [name]: value });
+    //console.log(name, value);
+    /* setError(validated({ ...user, [name]: value })); */
+  };
 
   return (
     <>
-      {token && <Navigate to="/listado" />}
+      {/* {token && <Navigate to="/listado" />} */}
       <div className="login-page bg-light">
         <div className="container">
           <div className="row">
@@ -57,19 +61,21 @@ export const Login = () => {
                   <div className="col-md-7 pe-0">
                     <div className="form-left h-100 py-5 px-5">
                       <form onSubmit={handleSubmit} className="row g-4">
+                      <div>{error && <p>{error}</p>}</div>
                         <div className="col-12">
                           <label>
-                            Username<span className="text-danger">*</span>
+                            email<span className="text-danger">*</span>
                           </label>
                           <div className="input-group">
                             <div className="input-group-text">
                               <i className="bi bi-person-fill"></i>
                             </div>
                             <input
-                              type="text"
+                              type="email"
                               name="email"
                               className="form-control"
                               placeholder="Enter Username"
+                              onChange={handleChange}
                             />
                           </div>
                         </div>
@@ -83,6 +89,7 @@ export const Login = () => {
                               <i className="bi bi-lock-fill"></i>
                             </div>
                             <input
+                            onChange={handleChange}
                               type="password"
                               name="password"
                               className="form-control"
@@ -100,7 +107,7 @@ export const Login = () => {
                             />
                             <label
                               className="form-check-label"
-                              for="inlineFormCheck"
+                              hmtlFor="inlineFormCheck"
                             >
                               Remember me
                             </label>

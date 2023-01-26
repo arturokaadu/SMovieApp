@@ -70,7 +70,7 @@
   text-transform: capitalize;
 }
 
-body {
+/* body {
   background: rgb(34, 63, 88);
   background: linear-gradient(
     90deg,
@@ -83,7 +83,7 @@ body {
     rgba(27, 58, 64, 1) 100%,
     rgba(26, 111, 139, 1) 100%
   );
-}
+} */
 
 .paginate{
     display: flex;
