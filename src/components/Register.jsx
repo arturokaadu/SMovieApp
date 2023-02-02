@@ -94,15 +94,17 @@ export const Register = () => {
         <div className="container">
           <div className="row">
             <div className="col-lg-10 offset-lg-1">
-              <h3 className="mb-3">Register Now</h3>
+              <h3 className="mb-3 text-muted">Register Now</h3>
               <div className="bg-white shadow rounded">
                 <div className="row">
                   <div className="col-md-7 pe-0">
                     <div className="form-left h-100 py-5 px-5">
                       <form onSubmit={handleSubmit} className="row g-4">
-                        <div>{error && <p>{error}</p>}</div>
+                        <div className="text-muted">
+                          {error && <p className="text-muted">{error}</p>}
+                        </div>
                         <div className="col-12">
-                          <label htmlFor="email">
+                          <label className="text-muted">
                             email<span className="text-danger">*</span>
                           </label>
                           <div className="input-group">
@@ -112,15 +114,15 @@ export const Register = () => {
                             <input
                               type="email"
                               name="email"
-                              className="form-control"
+                              className="form-control text-muted"
                               placeholder="Enter Username"
                               onChange={handleChange}
                             />
-                            {error.email && <span>{error.email}</span>}
+                            {error.email && <span className="text-muted">{error.email}</span>}
                           </div>
                         </div>
                         <div className="col-12">
-                          <label htmlFor="username">
+                          <label className="text-muted">
                             username<span className="text-danger">*</span>
                           </label>
                           <div className="input-group">
@@ -130,15 +132,17 @@ export const Register = () => {
                             <input
                               type="text"
                               name="username"
-                              className="form-control"
+                              className="form-control text-muted"
                               placeholder="Enter Username"
                               onChange={handleChange}
                             />
-                            {error.username && <span>{error.username}</span>}
+                            {error.username && (
+                              <span className="text-muted">{error.username}</span>
+                            )}
                           </div>
                         </div>
                         <div className="col-12">
-                          <label htmlFor="password">
+                          <label className="text-muted">
                             Password<span className="text-danger">*</span>
                           </label>
                           <div className="input-group">
@@ -149,15 +153,15 @@ export const Register = () => {
                               onChange={handleChange}
                               type="password"
                               name="password"
-                              className="form-control"
+                              className="form-control text-muted"
                               placeholder="Enter Password"
                             />
-                            {error.password && <span>{error.password}</span>}
+                            {error.password && <span className="text-muted">{error.password}</span>}
                           </div>
                         </div>
 
                         <div className="col-12">
-                          <label htmlFor="confirm">
+                          <label className="text-muted">
                             Confirm Password
                             <span className="text-danger">*</span>
                           </label>
@@ -169,28 +173,16 @@ export const Register = () => {
                               onChange={handleChange}
                               type="password"
                               name="confirmPassword"
-                              className="form-control"
+                              className="form-control text-muted"
                               placeholder="confirm Password"
                             />
-                            {error.password && <span>{error.password}</span>}
+                            {error.password && (
+                              <span className="text-muted">
+                                {error.password}
+                              </span>
+                            )}
                           </div>
                         </div>
-                        <div className="col-sm-6">
-                          <div className="form-check">
-                            <input
-                              className="form-check-input"
-                              type="checkbox"
-                              id="inlineFormCheck"
-                            />
-                            <label
-                              className="form-check-label"
-                              hmtlFor="inlineFormCheck"
-                            >
-                              Remember me
-                            </label>
-                          </div>
-                        </div>
-
                         <div className="col-12">
                           <button
                             type="submit"
@@ -210,67 +202,5 @@ export const Register = () => {
       </div>
     </>
 
-    /* <div>
-      <form onSubmit={handleSubmit}>
-        <div>{error && <p>{error}</p>}</div>
-        <div className="mb-3">
-          <label htmlFor="email" className="form-label">
-            Email address
-          </label>
-          <input
-            onChange={handleChange}
-            type="email"
-            name="email"
-            className="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-          />
-          {error.email && <span>{error.email}</span>}
-          <div id="emailHelp" className="form-text">
-            We'll never share your email with anyone else.
-          </div>
-        </div>
-        <div className="mb-3">
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            name="username"
-            placeholder="Enter your username"
-            onChange={handleChange}
-            className="form-control"
-          />
-          {error.username && <span>{error.username}</span>}
-        </div>
-
-        <div className="mb-3">
-          <label htmlFor="password" className="form-label">
-            Password
-          </label>
-          <input
-            onChange={handleChange}
-            type="password"
-            name="password"
-            className="form-control"
-            id="password"
-          />
-          {error.password && <span>{error.password}</span>}
-        </div>
-        <div className="mb-3">
-          <label htmlFor="confirm">Confirm Password</label>
-          <input
-            type="password"
-            name="confirmPassword"
-            id="confirmPassword"
-            placeholder="Confirm your password"
-            onChange={handleChange}
-            className="form-control"
-          />
-        </div>
-
-        <button type="submit" className="btn btn-primary">
-          Register
-        </button>
-      </form>
-    </div> */
   );
 };

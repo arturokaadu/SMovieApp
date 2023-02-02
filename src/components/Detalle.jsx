@@ -2,17 +2,17 @@ import { useNavigate } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import defaultImage from '../Assets/default.jpg'
+import defaultImage from '../Assets/default.jpg';
+import { Link } from "react-router-dom";
 export const Detalle = () => {
   let getToken = sessionStorage.getItem("token");
   //try this with useParams
-  const navigate = useNavigate();
   let query = new URLSearchParams(window.location.search);
   //back here if it sets on fire MovieID
   let movieID = query.get("MovieID");
-
+  
   //console.log(movieID);
-
+  
   // investigate why null
   const [details, setDetails] = useState(null);
   useEffect(() => {
@@ -29,6 +29,7 @@ export const Detalle = () => {
     });
   }, [movieID]);
   console.log(details);
+  const navigate = useNavigate();
   return (
     <>
 {/*       {!getToken && <Navigate to="/" />} */}
@@ -50,10 +51,12 @@ export const Detalle = () => {
             </div>
             <div className="col-8">
               <h2>{details.title}</h2>
-              <h5 className="mt-5">Release Date: {details.release_date}</h5>
-              <h5 className="">Géneros: </h5>
+              <h5 className="mt-5 text-muted">Release Date: {details.release_date}</h5>
+              <h5 className="text-muted">Géneros: </h5>
 
+              {console.log('value of navigate', navigate)}
               {details.genres.map((e) => (
+                
                 <button
                   onClick={() => navigate(`/resultados?genre=${e.id}`)}
                   className="genre-btn"
@@ -63,9 +66,9 @@ export const Detalle = () => {
                 </button>
               ))}
 
-              <h5 className="mt-4">Reseña:</h5>
-              <p>{details.overview}</p>
-              <h5 className="mt-4">
+              <h5 className="mt-4 text-muted">Reseña:</h5>
+              <p className="text-muted">{details.overview}</p>
+              <h5 className="mt-4 text-muted">
                 Rating:{" "}
                 <div className="vote-average d-flex align-items-center justify-content-center mt-3">
                   {Math.round(details.vote_average)}

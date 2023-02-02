@@ -13,11 +13,13 @@ import swal from "@sweetalert/with-react";
 import axios from "axios";
 import Pagination from "./components/Pagination";
 import { AuthProvider } from "./components/Context/authContext";
+import { Icon } from '@iconify/react';
 // Styles
 import "./css/app.css";
 import "./css/bootstrap.min.css";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { useAuth } from "./components/Context/authContext";
+import { ResetPassword } from "./components/ResetPassword";
 const App = () => {
   const [favs, setFavs] = useState([]);
   const [movieDat, setMovieDat] = useState([]);
@@ -122,7 +124,7 @@ const App = () => {
           <Route exact path="/login" element={<Login />} />
           <Route
             exact
-            path="/listado"
+            path="/"
             element={
            
               <Listado
@@ -151,7 +153,15 @@ const App = () => {
                 showContent={showContent} handleToggleContent={handleToggleContent}
               />
             }
-          />
+            />   <Route
+            exact
+          path="/resetPassword"
+          element={
+            <ResetPassword
+              />
+          }
+        />
+
         </Routes>
         </AuthProvider>
         {/*  <Footer /> */}

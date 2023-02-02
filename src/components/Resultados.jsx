@@ -4,13 +4,15 @@ import { Link } from "react-router-dom";
 import swal from "@sweetalert/with-react";
 import { useNavigate } from "react-router-dom";
 import { HeartSwitch } from "@anatoliygatt/heart-switch";
-import defaultImage from '../Assets/default.jpg'
+import defaultImage from '../Assets/default.jpg';
+import { useAuth } from "../components/Context/authContext";
+
 
 export const Resultados = ({addOrRemoveFromFavorites, favs,showContent, handleToggleContent}) => {
   let query = new URLSearchParams(window.location.search);
   let keyword = query.get("keyword");
   //let navigate = useNavigate();
-
+  const {user} = useAuth();
   const [moviesResults, setMoviesResults] = useState([]);
 
   useEffect(() => {
@@ -30,8 +32,31 @@ export const Resultados = ({addOrRemoveFromFavorites, favs,showContent, handleTo
         console.log(error);
       });
   }, [keyword]);
-
+const navigate = useNavigate()
   // let endpoint = https://api.themoviedb.org/3/search/company?api_key=2bda57bf0144e50a24fef4fbd75dcde8&page=1&query=
+  const HandleHeartClick = (movieData) => {
+    if (!user) {
+      swal({
+        text: "Please log in to add to favorites",
+        buttons: {
+          cancel: "Cancel",
+          logIn: {
+            text: "Log in",
+            value: "logIn",
+          },
+        },
+      }).then((value) => {
+        if (value === "logIn") {
+          navigate("/login");
+        }
+      });
+      return;
+    }else{
+    addOrRemoveFromFavorites(movieData)();
+  }
+  } 
+
+  
   return (
     <>
       <h2 className="d-flex align-items-center justify-content-center text-center mt-3">results for: {keyword}</h2>
@@ -58,7 +83,8 @@ export const Resultados = ({addOrRemoveFromFavorites, favs,showContent, handleTo
                 <HeartSwitch
                   className="favourite-btn"
                   data-movie-id={e.id}
-                  onClick={addOrRemoveFromFavorites(movieData)}
+                   /* onClick={addOrRemoveFromFavorites(movieData)} */ 
+                   onClick={()=> HandleHeartClick(movieData)}
                   checked={favs.find((fav) => fav.id === e.id) ? true : false}
                 />
                 <span className="vote-average d-flex align-items-center justify-content-center">{e.vote_average}</span>

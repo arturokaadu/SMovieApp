@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Busqueda } from "./Busqueda";
 import { useAuth } from "./Context/authContext";
 import { useNavigate } from "react-router-dom";
+import DarkModeToggle from "./DarkModeToggle";
 export const Header = (favs) => {
 
   const navigate = useNavigate();
@@ -33,12 +34,12 @@ export const Header = (favs) => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <Link className="nav-link active" aria-current="page" to="/listado">
+              <Link className="nav-link active" aria-current="page" to="/">
                 Home
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/listado">
+              <Link className="nav-link" to="/">
                 Peliculas más recientes
               </Link>
             </li>
@@ -66,6 +67,9 @@ export const Header = (favs) => {
 
           </ul>
         </div>
+       {/*  <header className="header"> */}
+        <DarkModeToggle />
+   {/*      </header> */}
         {user && <button className="btn btn-outline-warning" onClick={handleLogout}>Logout</button>}
         {!user && <button className="btn btn-outline-warning" onClick={handleLogout}>Login</button>}
         <Busqueda />

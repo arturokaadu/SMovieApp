@@ -141,3 +141,7 @@ p{
   font-size: 16px;
   margin-right: 8px;
 }
+
+.linkci{
+  text-decoration: none;
+}

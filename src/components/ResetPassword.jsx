@@ -1,49 +1,39 @@
-import axios from "axios";
-import swal from "@sweetalert/with-react";
-import { useState } from "react";
-import { useAuth } from "./Context/authContext";
 import { useNavigate } from "react-router-dom";
-import { async } from "@firebase/util";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-export const Login = () => {
-  const navigate = useNavigate();
+import { useState } from "react";
+import { useAuth } from "./Context/authContext.jsx";
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
+export const ResetPassword = () => {
+  const navigate = useNavigate();
+  const [error, setError] = useState("");
+
+  const [userData, setUserData] = useState({
+    user: "",
+    password: "",
+  });
+  //localStorage.setItem("userLogged", JSON.stringify(data.payload));
+  //working
+
+  const { login, resetPassword } = useAuth();
+
+  function handleState(e) {
+    setUserData({
+      ...userData,
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  const handleResetPassword = async () => {
+    if (!userData.email) return setError("Please enter your email");
+    console.log("reset");
     try {
-      await login(user.email, user.password).then(() => {
-        navigate("/");
-      });
+      await resetPassword(userData.email);
+      setError("we sent you an email with a link to reset");
     } catch (error) {
       setError(error.message);
     }
   };
-
-  function validateMail(email) {
-    return /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-      email
-    );
-  }
-
-  let token = sessionStorage.getItem("token");
-  const [error, setError] = useState("");
-
-  const [user, setUser] = useState({
-    email: "",
-    password: "",
-    username: "",
-    confirmPassword: "",
-  });
-
-  const { login } = useAuth();
-
-  const handleChange = ({ target: { name, value } }) => {
-    setUser({ ...user, [name]: value });
-    //console.log(name, value);
-    /* setError(validated({ ...user, [name]: value })); */
-  };
-
   return (
     <>
       {/* {token && <Navigate to="/listado" />} */}
@@ -51,12 +41,12 @@ export const Login = () => {
         <div className="container">
           <div className="row">
             <div className="col-lg-10 offset-lg-1">
-              <h3 className="mb-3 text-muted">Login Now</h3>
+              <h3 className="mb-3 text-muted">Reset password</h3>
               <div className="bg-white shadow rounded">
                 <div className="row">
                   <div className="col-md-7 pe-0">
                     <div className="form-left h-100 py-5 px-5">
-                      <form onSubmit={handleSubmit} className="row g-4">
+                      <form className="row g-4">
                         <div>{error && <p>{error}</p>}</div>
                         <div className="col-12">
                           <label className="text-muted">
@@ -71,7 +61,6 @@ export const Login = () => {
                               name="email"
                               className="form-control"
                               placeholder="Enter Username"
-                              onChange={handleChange}
                             />
                           </div>
                         </div>
@@ -85,7 +74,6 @@ export const Login = () => {
                               <i className="bi bi-lock-fill"></i>
                             </div>
                             <input
-                              onChange={handleChange}
                               type="password"
                               name="password"
                               className="form-control"
@@ -96,29 +84,14 @@ export const Login = () => {
 
                         <div className="col-12">
                           <button
+                            onClick={handleResetPassword}
                             type="submit"
                             className="btn btn-primary px-4 float-end mt-4"
                           >
-                            login
+                            Reset Password
                           </button>
                         </div>
                       </form>
-
-                      <div className="col-12">
-                        <Link to="/register" className="linkci text-muted">
-                          <span className="text-muted">
-                            don't have an account? REGISTER HERE
-                          </span>
-                        </Link>
-                      </div>
-                      
-                      <div className="col-12">
-                        <Link to="/resetPassword" className="linkci text-muted">
-                          <span className="text-muted">
-                            Forgot password? RESET HERE
-                          </span>
-                        </Link>
-                      </div>
                     </div>
                   </div>
                 </div>
