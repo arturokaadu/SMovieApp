@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/SMovieApp/static/css/main.bb77b00b.css",
+    "main.js": "/SMovieApp/static/js/main.0665e24f.js",
+    "static/media/default.jpg": "/SMovieApp/static/media/default.72ea9d4f81e34f84de0e.jpg",
+    "index.html": "/SMovieApp/index.html",
+    "main.bb77b00b.css.map": "/SMovieApp/static/css/main.bb77b00b.css.map",
+    "main.0665e24f.js.map": "/SMovieApp/static/js/main.0665e24f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bb77b00b.css",
+    "static/js/main.0665e24f.js"
+  ]
+}
