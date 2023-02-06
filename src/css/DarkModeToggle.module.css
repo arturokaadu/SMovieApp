@@ -92,3 +92,11 @@ body.darkMode {
 nav{
   height: 73px;
 }
+
+@media (max-width: 992px) {
+  nav .container {
+    display: inline-block;
+    margin-right: 26px;
+    margin-top: 10px;
+  }
+}

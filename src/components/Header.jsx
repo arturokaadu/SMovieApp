@@ -6,14 +6,13 @@ import { useAuth } from "./Context/authContext";
 import { useNavigate } from "react-router-dom";
 import DarkModeToggle from "./DarkModeToggle";
 export const Header = (favs) => {
-
   const navigate = useNavigate();
-  const {user, logout, loading} = useAuth()
+  const { user, logout, loading } = useAuth();
   const handleLogout = async () => {
-    await logout()
-    navigate('/login')
-  }
- if(loading) return <h1>Loading</h1>
+    await logout();
+    navigate("/login");
+  };
+  // if(loading) return <h1>Loading</h1>
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
@@ -43,7 +42,7 @@ export const Header = (favs) => {
                 Peliculas más recientes
               </Link>
             </li>
-         {/*    <li className="nav-item">
+            {/*    <li className="nav-item">
               
                 
               
@@ -57,24 +56,32 @@ export const Header = (favs) => {
               )}
             </li>
             <li className="nav-item">
-            {user && favs.favs.length > 0 && (
-              <span className="nav-link disabled text-success">
-                Peliculas en Favoritos: {favs.favs.length}
-              </span>
-            )}
+              {user && favs.favs.length > 0 && (
+                <span className="nav-link disabled text-success">
+                  Peliculas en Favoritos: {favs.favs.length}
+                </span>
+              )}
             </li>
-
-
           </ul>
         </div>
-       {/*  <header className="header"> */}
+
+        {/*  <header className="header"> */}
         <DarkModeToggle />
-   {/*      </header> */}
-        {user && <button className="btn btn-outline-warning" onClick={handleLogout}>Logout</button>}
-        {!user && <button className="btn btn-outline-warning" onClick={handleLogout}>Login</button>}
+        {/*      </header> */}
+        <div className="btn-group">
+        {user && (
+          <button className="btn btn-outline-warning" onClick={handleLogout}>
+            Logout
+          </button>
+        )}
+        {!user && (
+          <button className="btn btn-outline-warning" onClick={handleLogout}>
+            Login
+          </button>
+        )}
         <Busqueda />
+        </div>
       </div>
     </nav>
   );
 };
-

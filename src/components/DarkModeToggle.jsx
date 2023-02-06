@@ -6,6 +6,7 @@ const DarkModeToggle = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const handleChange = (event) => {
     setIsDarkMode(event.target.checked);
+  
     document.body.classList.toggle(styles.darkMode, event.target.checked);
   }
   return (

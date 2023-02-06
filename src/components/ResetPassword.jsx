@@ -61,6 +61,7 @@ export const ResetPassword = () => {
                               name="email"
                               className="form-control"
                               placeholder="Enter Username"
+                              onChange={(e) => handleState(e)}
                             />
                           </div>
                         </div>
