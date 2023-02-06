@@ -1,4 +1,5 @@
 {
+  "homepage": "http://arturokaadu.github.io/SMovieApp",
   "name": "alkemy",
   "version": "0.1.0",
   "private": true,
@@ -17,6 +18,7 @@
     "axios": "^1.1.3",
     "cdbreact": "^1.5.3",
     "firebase": "^9.16.0",
+    "gh-pages": "^5.0.0",
     "react": "^18.2.0",
     "react-animated-heart": "^0.0.7",
     "react-dom": "^18.2.0",
@@ -27,6 +29,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d -build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
