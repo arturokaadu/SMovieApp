@@ -70,25 +70,13 @@
   text-transform: capitalize;
 }
 
-/* body {
-  background: rgb(34, 63, 88);
-  background: linear-gradient(
-    90deg,
-    rgba(34, 63, 88, 1) 0%,
-    rgba(2, 0, 36, 1) 9%,
-    rgba(17, 38, 43, 1) 20%,
-    rgba(23, 80, 129, 1) 54%,
-    rgba(38, 67, 93, 1) 58%,
-    rgba(13, 13, 13, 1) 91%,
-    rgba(27, 58, 64, 1) 100%,
-    rgba(26, 111, 139, 1) 100%
-  );
-} */
-
 .paginate{
     display: flex;
 }
 
+.navbar-nav{
+  display: flex;
+}
 .vote-average {
   width: 40px;
   height: 40px;
@@ -101,15 +89,6 @@
   color: white;
   transition: all 0.2s;
 }
-
-/* .vote-average:hover {
-  transform: scale(1.2);
-  box-shadow: 0 0 10px gold;
-}
-
-.ml-3 {
-  margin-left: 1rem !important;
-} */
 
 
 h2{
@@ -142,37 +121,7 @@ p{
   margin-right: 8px;
 }
 
-.linkci{
-  text-decoration: none;
-}
-
-.navbar {
-  background-color: #333;
-}
-
-.navbar-brand {
-  font-size: 1.5em;
-  color: #fff;
-}
-
-.nav-item {
-  font-size: 1.2em;
-  margin: 0 10px;
-}
-
-
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 999;
-}
-
-
-
-
-@media only screen and (max-width: 767px) {
+@media (max-width: 768px) {
   .cardImg {
     height: 200px;
   }
@@ -184,78 +133,96 @@ p{
   .vote-average {
     display: none;
   }
+  .card-title {
+    font-family: "Montserrat", sans-serif;
+    font-size: 13px;
+    font-weight: bolder;
+    height: 50px;
+  }
+ /*  .col-3{
+    width: 39%;
+  } */
+  .hidden {
+    display: none;
+  }
+  
+  .truncateText {
+    max-height: 11em; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+
+
 }
 
-@media only screen and (max-width: 575px) {
-  .col-3 {
-    width: 100%;
-  }
-}
 
-
-/* @media only screen and (max-width: 992px) {
-.navbar {
-flex-direction: column;
-align-items: center;
-justify-content: center;
-}
-.navbar-nav {
-display: flex;
-flex-direction: column;
-}
-.nav-item {
-margin-bottom: 10px;
-}
-} */
-/* @media (max-width: 1067px) {
-  .navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background-color: #333;
-  }
-  .navbar a {
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-  }
-} */
-@media only screen and (max-width: 992px) {
-  .navbar {
-    flex-wrap: wrap;
+@media (max-width: 991.98px) {
+  .cardImg {
+    height:100%;
   }
 
-  .navbar-nav {
-    flex-direction: column;
+  .card {
+    height: 100%;
+  }
+
+  .vote-average {
+    display: none;
+  }
+  .card-title {
+    font-family: "Montserrat", sans-serif;
+    font-size: 13px;
+    font-weight: bolder;
+    height: 50px;
+  }
+
+  .hidden {
+    display: none;
+  }
+  
+  .truncateText {
+    max-height: 11em; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .navbar-nav .nav-item {
+    margin-right: 10px;
+  }
+
+  .text-nowrap{
+    display: flex !important;
+    flex-direction: row !important;
   }
 
   .navbar-collapse {
-    display: flex !important;
+    display: none; /* Oculta el contenido por defecto */
+    position: absolute; /* Ajusta la posición */
+    top: 50%; /* Alinea verticalmente al centro */
+    left: 50%; /* Alinea horizontalmente al centro */
+    transform: translate(-50%, -50%); /* Centra el contenido */
+    background-color: rgba(0, 0, 0, 0.8); /* Fondo semitransparente */
+    padding: 20px; /* Agrega espacio alrededor del contenido */
+    border-radius: 10px; /* Agrega bordes redondeados */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Sombra alrededor */
+    margin-left: 106px;
   }
+
+}
+.navbar-expand-lg .navbar-collapse{
+ margin-left: 106px;
 }
 
-@media only screen and (max-width: 992px) {
-  .navbar {
+.navbar-collapse.show {
+  display: block;
+}
+
+
+.card-container{
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  }
-  
-  .navbar-nav {
-  display: none;
-  }
-  
-  .btn-group {
-    position: absolute;
-    top: -380px;
-    left: 0;
-    margin-bottom: 0;
-  }
-  
-  .navbar-brand {
-  display: none;
-  }
-  }
+  align-items: center; /* Center items horizontally */
+  justify-content: space-between; /* Space items vertically */
+  height: 100%; /* Expand the container to fill the card body */
+  padding: 10px; /* Add some spacing inside the container */
+}
+/* TO DO max 600 and 1024 */

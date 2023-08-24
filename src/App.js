@@ -11,6 +11,7 @@ import { Favoritos } from "./components/Favoritos";
 import { Navigate } from "react-router-dom";
 import swal from "@sweetalert/with-react";
 import axios from "axios";
+import bootstrap from 'bootstrap';
 import Pagination from "./components/Pagination";
 import { AuthProvider } from "./components/Context/authContext";
 import { Icon } from '@iconify/react';
@@ -25,6 +26,7 @@ const App = () => {
   const [movieDat, setMovieDat] = useState([]);
   const [checked, setChecked] = useState(false);
   const {user, loading} = useAuth()
+  const [isLoading, setIsLoading] = useState(true);
 //console.log({user} = useAuth());
   const [showContent, setShowContent] = useState([]);
  //const { user} = useAuth();
@@ -93,7 +95,7 @@ const App = () => {
       setFavs(tempMovie);
       localStorage.setItem("favId", movieData.id);
       console.log("movie added");
-      checked = { checked };
+    /*  checked = { checked }; */
       setChecked(true);
     } else {
       let moviesLeft = tempMovie.filter((e) => {
@@ -111,7 +113,7 @@ const App = () => {
       }  
     }
   };
-
+ 
   return (
     <>
       <div>

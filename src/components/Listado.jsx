@@ -102,6 +102,7 @@ export const Listado = ({
                     {e.vote_average}
                   </span>
                 </div>
+                <div className="card-container">
                 <div className="card-body ">
                   <span className="card-title text-center d-flex justify-content-center">
                     {e.title}
@@ -114,7 +115,7 @@ export const Listado = ({
                     >
                       {showContent[index] ? "ocultar" : "Mostrar Sinopsis"}
 
-                      <div>
+                      <div className={`truncateText ${showContent[index] ? "" : "hidden"}`}>
                         {showContent[index] && <span>{e.overview}</span>}
                       </div>
                     </button>
@@ -127,6 +128,7 @@ export const Listado = ({
                       Detail{" "}
                     </Link>
                   </div>
+                </div>
                 </div>
               </div>
             </div>

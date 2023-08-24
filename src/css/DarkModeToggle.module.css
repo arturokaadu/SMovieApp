@@ -92,7 +92,7 @@ body.darkMode {
 nav{
   height: 73px;
 }
-
+/* max means conditions will apply up to x (less than x )px min  means the opposite */
 @media (max-width: 992px) {
   nav .container {
     display: inline-block;
