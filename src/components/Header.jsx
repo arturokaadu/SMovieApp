@@ -19,10 +19,11 @@ export const Header = (favs) => {
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark custom-navbar">
+      
       <div className="container-fluid">
-        <a className="navbar-brand" href="#">
+       {/*  <a className="navbar-brand" href="#">
           Movies App
-        </a>
+        </a> */}
         <button
           className="navbar-toggler"
           type="button"
@@ -35,12 +36,13 @@ export const Header = (favs) => {
             isMobileMenuOpen ? "show" : ""
           }`}
         >
+         
           <ul className="navbar-nav text-nowrap">
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <Link className="nav-link active" aria-current="page" to="/">
                 Home
               </Link>
-            </li>
+            </li> */}
             <li className="nav-item">
               <Link className="nav-link" to="/">
                 Peliculas más recientes
@@ -79,8 +81,13 @@ export const Header = (favs) => {
             )}
             <Busqueda />
           </div>
+          
         </div>
       </div>
+      <div className="dark-mode-toggle-container">
+            <DarkModeToggle />
+
+          </div>
     </nav>
   );
 };

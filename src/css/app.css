@@ -207,6 +207,11 @@ p{
     margin-left: 106px;
   }
 
+  .dark-mode-toggle-container{
+    margin-left: auto;
+    margin-top: -34px;
+  }
+  
 }
 .navbar-expand-lg .navbar-collapse{
  margin-left: 106px;
