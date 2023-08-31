@@ -83,11 +83,16 @@
   color: white;
 }
 
-
+/* 
 body.darkMode {
   background-color: black;
   color: white;
-}
+} */
+
+/* body {
+  background-color: black;
+  color: white;
+} */
 
 nav{
   height: 73px;
@@ -100,3 +105,13 @@ nav{
     margin-top: 10px;
   }
 }
+
+
+
+/* .login-page.darkMode {
+  background-color: #374151;
+}
+
+.form-left.darkMode {
+  background-color: #374151;
+} */

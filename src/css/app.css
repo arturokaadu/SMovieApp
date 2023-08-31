@@ -264,3 +264,7 @@ p{
     width: 33% !important;
   }
   }
+
+  .bg-light {
+    --bs-bg-opacity: unset !important;
+  }
