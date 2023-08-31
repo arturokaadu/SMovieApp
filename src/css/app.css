@@ -152,9 +152,12 @@ p{
     text-overflow: ellipsis;
   }
   
-
+  .dark-mode-toggle-container{
+    margin-top: -41px;
+  }
 
 }
+
 
 
 @media (max-width: 991.98px) {
@@ -214,7 +217,7 @@ p{
   
 }
 .navbar-expand-lg .navbar-collapse{
- margin-left: 106px;
+ margin-left: 16px;
 }
 
 .navbar-collapse.show {
@@ -225,9 +228,39 @@ p{
 .card-container{
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center items horizontally */
-  justify-content: space-between; /* Space items vertically */
-  height: 100%; /* Expand the container to fill the card body */
+  align-items: center; 
+  justify-content: space-between; 
+  height: 100%; 
   padding: 10px; /* Add some spacing inside the container */
 }
 /* TO DO max 600 and 1024 */
+@media (max-width: 874px) {
+  .navbar-collapse {
+    align-items: flex-start;
+    z-index: 100;
+  }
+
+  .dark-mode-toggle-container {
+    margin-left: auto;
+/*     margin-top: 10px; */
+  }
+
+}
+
+@media (max-width: 500px){
+  .dark-mode-toggle-container{
+    margin-top: -41px;
+  }
+}
+
+@media (max-width: 434px){
+.col-3{
+  width: 33% !important;
+}
+}
+
+@media (max-width: 380px){
+  .col-3{
+    width: 33% !important;
+  }
+  }
