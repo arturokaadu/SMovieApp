@@ -50,7 +50,7 @@ export const Detalle = () => {
                 />
             </div>
             <div className="col-8">
-              <h2>{details.title}</h2>
+              <h2 className="text-black">{details.title}</h2>
               <h5 className="mt-5 text-muted">Release Date: {details.release_date}</h5>
               <h5 className="text-muted">Géneros: </h5>
 

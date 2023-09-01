@@ -16,7 +16,17 @@ export const Login = () => {
         navigate("/");
       });
     } catch (error) {
-      setError(error.message);
+      console.log(error.code);
+      if (error.code === "auth/internal-error") {
+        
+        setError("correo o contraseña inválidos");
+      }
+      else if (error.code === "auth/wrong-password"){
+        setError("contraseña inválida")
+      } 
+      else if (error.code === "auth/user-not-found"){
+        setError("Usuario Inválido")
+      }
     }
   };
 
@@ -57,7 +67,7 @@ export const Login = () => {
                   <div className="col-md-7 pe-0">
                     <div className="form-left h-100 py-5 px-5">
                       <form onSubmit={handleSubmit} className="row g-4">
-                        <div>{error && <p>{error}</p>}</div>
+                        <div className="text-black">{error && <p className="text-black">{error}</p>}</div>
                         <div className="col-12">
                           <label className="text-muted">
                             email<span className="text-danger">*</span>
