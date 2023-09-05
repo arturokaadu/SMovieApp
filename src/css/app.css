@@ -212,7 +212,8 @@ p{
 
   .dark-mode-toggle-container{
     margin-left: auto;
-    margin-top: -34px;
+    margin-top: -41px;
+    margin-right: 57px;
   }
   
 }
@@ -247,6 +248,26 @@ p{
 
 }
 
+
+@media (max-width: 521px){
+  .searchbar{
+
+  }
+
+  .navbar-collapse {
+    display: block;
+    margin-top: 20px; }
+
+
+    .btn-group{
+      display: flex;
+      flex-direction: column;
+    }
+
+ .btn-outline-warning{
+      margin-bottom: 10px;
+    }
+
 @media (max-width: 500px){
   .dark-mode-toggle-container{
     margin-top: -41px;
@@ -264,7 +285,14 @@ p{
     width: 33% !important;
   }
   }
-
   .bg-light {
     --bs-bg-opacity: unset !important;
+  } }
+
+ /*  .body{
+    margin: unset !important;
+  } */
+
+  .row{
+    margin-right: unset !important;
   }

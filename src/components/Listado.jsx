@@ -83,7 +83,7 @@ export const Listado = ({
           };
 
           return (
-            <div className="col-3" key={index}>
+            <div className="col-md-4 col-sm-6 col-12" key={index}>
               <div className="card text-white bg-dark my-4">
                 <img
                   src={`https://image.tmdb.org/t/p/w500/${e.poster_path}`}
