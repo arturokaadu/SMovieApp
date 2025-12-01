@@ -1,40 +1,49 @@
+
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import swal from "@sweetalert/with-react";
 import { useNavigate } from "react-router-dom";
 import { HeartSwitch } from "@anatoliygatt/heart-switch";
-import defaultImage from '../Assets/default.jpg';
 import { useAuth } from "../components/Context/authContext";
+import { searchAnime } from "../services/animeService";
 
-
-export const Resultados = ({addOrRemoveFromFavorites, favs,showContent, handleToggleContent}) => {
+export const Resultados = ({ addOrRemoveFromFavorites, favs, showContent, handleToggleContent }) => {
   let query = new URLSearchParams(window.location.search);
   let keyword = query.get("keyword");
-  //let navigate = useNavigate();
-  const {user} = useAuth();
+  const { user } = useAuth();
   const [moviesResults, setMoviesResults] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const endpoint = `https://api.themoviedb.org/3/search/movie?api_key=2bda57bf0144e50a24fef4fbd75dcde8&page=1&query=${keyword}`;
-    axios
-      .get(endpoint)
-      .then((response) => {
-        const moviesArray = response.data.results;
-        //console.log(moviesArray);
-        //navigate('/resultados')
+    const fetchResults = async () => {
+      setLoading(true);
+      try {
+        // Determine SFW mode based on user settings
+        // If user is not logged in or showNSFW is false/undefined, enable SFW filter
+        const sfwMode = !user?.settings?.showNSFW;
+
+        const data = await searchAnime(keyword, 1, sfwMode);
+        const moviesArray = data.data;
+
         if (moviesArray.length === 0) {
-          swal(<h4>No results</h4>);
+          swal(<h4>No results found</h4>);
         }
         setMoviesResults(moviesArray);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [keyword]);
-const navigate = useNavigate()
-  // let endpoint = https://api.themoviedb.org/3/search/company?api_key=2bda57bf0144e50a24fef4fbd75dcde8&page=1&query=
-  const HandleHeartClick = (movieData) => {
+      } catch (error) {
+        console.error(error);
+        swal(<h4>Error searching anime</h4>);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (keyword) {
+      fetchResults();
+    }
+  }, [keyword, user]);
+
+  const HandleHeartClick = (animeData) => {
     if (!user) {
       swal({
         text: "Please log in to add to favorites",
@@ -51,67 +60,64 @@ const navigate = useNavigate()
         }
       });
       return;
-    }else{
-    addOrRemoveFromFavorites(movieData)();
-  }
-  } 
+    } else {
+      addOrRemoveFromFavorites(animeData)();
+    }
+  };
 
-  
+  if (loading) return <div className="text-center mt-5"><h2>Searching...</h2></div>;
+
   return (
     <>
-      <h2 className="d-flex align-items-center justify-content-center text-center mt-3">results for: {keyword}</h2>
-{/*       {moviesResults.length}
- */}      <div className="row">
-      {moviesResults.map((e, index) => {
-          const movieData = {
-            imgURL: `https://image.tmdb.org/t/p/w500/${e.poster_path}`,
-            overview: e.overview,
-            title: e.title,
-            id: e.id,
+      <h2 className="d-flex align-items-center justify-content-center text-center mt-3">Results for: {keyword}</h2>
+      <div className="row">
+        {moviesResults.map((anime, index) => {
+          const animeData = {
+            imgURL: anime.images.jpg.large_image_url,
+            overview: anime.synopsis,
+            title: anime.title,
+            id: anime.mal_id,
+            vote_average: anime.score,
           };
 
           return (
-            <div className="col-3" key={index}>
-              <div className="card text-white bg-dark my-4">
-                <img
-                  src={`${movieData.imgURL !== `https://image.tmdb.org/t/p/w500/null` ? movieData.imgURL : defaultImage}`}
-                  className="cardImg"
-                  alt="..."
-                />
-                {console.log(movieData.imgURL)}
-               <div className="d-flex justify-content-between mr-2">
-                <HeartSwitch
-                  className="favourite-btn"
-                  data-movie-id={e.id}
-                   /* onClick={addOrRemoveFromFavorites(movieData)} */ 
-                   onClick={()=> HandleHeartClick(movieData)}
-                  checked={favs.find((fav) => fav.id === e.id) ? true : false}
-                />
-                <span className="vote-average d-flex align-items-center justify-content-center">{e.vote_average}</span>
-                </div>
-                <div className="card-body ">
-                  <span className="card-title text-center d-flex justify-content-center">
-                    {e.title}
-                  </span>
-
-                  <div className="d-flex justify-content-center">
-                    <button
-                      className="btn btn-info bg-dark  text-white"
-                      onClick={() => handleToggleContent(index)}
-                    >
-                      {showContent[index] ? "ocultar" : "Mostrar Sinopsis"}
-
-                      <div>
-                        {showContent[index] && <span>{e.overview}</span>}
-                      </div>
-                    </button>
+            <div className="col-md-3 col-sm-6 col-12" key={anime.mal_id}>
+              <div className="card text-white my-4 anime-card glass-card" style={{ overflow: 'hidden', border: 'none' }}>
+                <div style={{ position: 'relative' }}>
+                  <img
+                    src={anime.images.jpg.large_image_url}
+                    className="card-img-top"
+                    alt={anime.title}
+                    style={{ height: '300px', objectFit: 'cover' }}
+                  />
+                  <div style={{ position: 'absolute', top: '10px', right: '10px' }}>
+                    <span className={`badge ${anime.status === 'Currently Airing' ? 'bg-success' : 'bg-primary'}`}>
+                      {anime.status === 'Currently Airing' ? 'Airing' : anime.status}
+                    </span>
                   </div>
-                  <div className="d-flex mt-2 justify-content-center">
+                </div>
+
+                <div className="card-body">
+                  <div className="d-flex justify-content-between align-items-center mb-2">
+                    <h5 className="card-title text-truncate" style={{ maxWidth: '80%' }} title={anime.title}>{anime.title}</h5>
+                    <span className="badge bg-warning text-dark">★ {anime.score}</span>
+                  </div>
+
+                  <div className="d-flex justify-content-between align-items-center">
+                    <HeartSwitch
+                      className="favourite-btn"
+                      size="sm"
+                      inactiveColor="white"
+                      activeColor="#ff0000"
+                      data-movie-id={anime.mal_id}
+                      onClick={() => HandleHeartClick(animeData)}
+                      checked={favs.find((fav) => fav.id === anime.mal_id) ? true : false}
+                    />
                     <Link
-                      className="btn btn-info btn btn-info bg-dark  text-white mt-2 d-flex justify-content-center"
-                      to={`/detalle?MovieID=${e.id}`}
+                      className="btn btn-sm btn-outline-light"
+                      to={`/detalle?id=${anime.mal_id}`}
                     >
-                      Detail{" "}
+                      Details
                     </Link>
                   </div>
                 </div>

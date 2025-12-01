@@ -1,52 +1,77 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
-import { Navigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 import { auth } from "../firebase";
 import swal from "@sweetalert/with-react";
 import Pagination from "./Pagination";
 import { HeartSwitch } from "@anatoliygatt/heart-switch";
-//import {Collapse} from bootstrap
 import { useAuth } from "../components/Context/authContext";
+import { getTopAnime } from "../services/animeService";
+
 export const Listado = ({
   addOrRemoveFromFavorites,
   favs,
-  movieDat,
-  checked,
+  // movieDat, // Removed
+  // checked,
   showContent,
   handleToggleContent,
 }) => {
-  let getToken = sessionStorage.getItem("token");
   const navigate = useNavigate();
-  /* const authContext = useContext(context)
-  console.log(authContext ); */
-  const authContext = useAuth();
-  /* console.log(authContext); */
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostPerPage] = useState(4);
-
   const { user } = useAuth();
-  /*   console.log(user); */
-  const lasPostIndex = currentPage * postsPerPage;
-  const firstPostIndex = lasPostIndex - postsPerPage;
-  const currentPost = movieDat.slice(firstPostIndex, lasPostIndex);
 
-  //console.log(currentPost);
+  const [animeList, setAnimeList] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(12); // Increased for better grid view
+  // Jikan API pagination is handled by the API itself usually, but for now let's stick to client side or hybrid. 
+  // Jikan returns 25 items per page. Let's use the API pagination if possible, or just client side for the top list if we fetch enough.
+  // getTopAnime returns pagination data. Let's try to use that.
+
+  // For this refactor, I will fetch the top anime (which returns 25 items) and just display them. 
+  // If we want more, we need to handle API pagination. 
+  // The existing Pagination component seems to handle client-side slicing.
+  // Let's keep it simple: Fetch page 1 of top anime (25 items) and display them.
+  // Or better, fetch based on currentPage if we want to support "infinite" feel via pages.
+
+  // Let's stick to the existing Pagination component logic for now (client side slicing) 
+  // BUT since Jikan gives 25 items, maybe we just show all 25 and use API pagination for "Next Page"?
+  // The existing code sliced `movieDat`.
+
+  // Let's implement API-based pagination.
+  const [pagination, setPagination] = useState({});
+
+  useEffect(() => {
+    const fetchAnime = async () => {
+      setLoading(true);
+      try {
+        const data = await getTopAnime(currentPage);
+        let results = data.data;
+
+        // Client-side NSFW filtering for Top Anime
+        const showNSFW = user?.settings?.showNSFW;
+        if (!showNSFW) {
+          results = results.filter(anime => anime.rating !== "Rx - Hentai");
+        }
+
+        setAnimeList(results);
+        setPagination(data.pagination);
+      } catch (error) {
+        console.error("Error loading anime:", error);
+        swal(<h5>Error loading anime data</h5>);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAnime();
+  }, [currentPage, user]);
 
   const paging = (pageNumber) => {
     setCurrentPage(pageNumber);
+    window.scrollTo(0, 0);
   };
 
-  useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-   /*    if (!user) {
-        navigate("/login");
-      } */
-    });
-  }, []);
-
-  const HandleHeartClick = (movieData) => {
+  const HandleHeartClick = (animeData) => {
     if (!user) {
       swal({
         text: "Please log in to add to favorites",
@@ -63,85 +88,89 @@ export const Listado = ({
         }
       });
       return;
-    }else{
-    addOrRemoveFromFavorites(movieData)();
-  }
-  }
+    } else {
+      addOrRemoveFromFavorites(animeData)();
+    }
+  };
+
+  if (loading) return <div className="text-center mt-5"><h2>Loading Anime...</h2></div>;
 
   return (
     <>
-      {/*       {!getToken && <Navigate to="/" />}
-       */}
       <div className="row">
-        {currentPost.map((e, index) => {
-          const movieData = {
-            imgURL: `https://image.tmdb.org/t/p/w500/${e.poster_path}`,
-            overview: e.overview,
-            title: e.title,
-            id: e.id,
-            vote_average: e.vote_average,
+        {animeList.map((anime, index) => {
+          const animeData = {
+            imgURL: anime.images.jpg.large_image_url,
+            overview: anime.synopsis,
+            title: anime.title,
+            id: anime.mal_id,
+            vote_average: anime.score,
           };
 
           return (
-            <div className="col-md-4 col-sm-6 col-12" key={index}>
-              <div className="card text-white bg-dark my-4">
-                <img
-                  src={`https://image.tmdb.org/t/p/w500/${e.poster_path}`}
-                  className="cardImg"
-                  alt="..."
-                />
-                <div className="d-flex justify-content-between mr-2">
-                  <HeartSwitch
-                    className="favourite-btn"
-                    data-movie-id={e.id}
-                   /*  onClick={addOrRemoveFromFavorites(movieData)} */
-                   onClick={()=> HandleHeartClick(movieData)}
-                    checked={favs.find((fav) => fav.id === e.id) ? true : false}
+            <div className="col-md-3 col-sm-6 col-12" key={anime.mal_id}>
+              <div className="card text-white my-4 anime-card glass-card" style={{ overflow: 'hidden', border: 'none' }}>
+                <div style={{ position: 'relative' }}>
+                  <img
+                    src={anime.images.jpg.large_image_url}
+                    className="card-img-top"
+                    alt={anime.title}
+                    style={{ height: '300px', objectFit: 'cover' }}
                   />
-                  <span className="vote-average d-flex align-items-center justify-content-center">
-                    {e.vote_average}
-                  </span>
-                </div>
-                <div className="card-container">
-                <div className="card-body ">
-                  <span className="card-title text-center d-flex justify-content-center">
-                    {e.title}
-                  </span>
-
-                  <div className="d-flex justify-content-center">
-                    <button
-                      className="btn btn-info bg-dark  text-white"
-                      onClick={() => handleToggleContent(index)}
-                    >
-                      {showContent[index] ? "ocultar" : "Mostrar Sinopsis"}
-
-                      <div className={`truncateText ${showContent[index] ? "" : "hidden"}`}>
-                        {showContent[index] && <span>{e.overview}</span>}
-                      </div>
-                    </button>
+                  <div style={{ position: 'absolute', top: '10px', right: '10px' }}>
+                    <span className={`badge ${anime.status === 'Currently Airing' ? 'bg-success' : 'bg-primary'}`}>
+                      {anime.status === 'Currently Airing' ? 'Airing' : anime.status}
+                    </span>
                   </div>
-                  <div className="d-flex mt-2 justify-content-center">
+                </div>
+
+                <div className="card-body">
+                  <div className="d-flex justify-content-between align-items-center mb-2">
+                    <h5 className="card-title text-truncate" style={{ maxWidth: '80%' }} title={anime.title}>{anime.title}</h5>
+                    <span className="badge bg-warning text-dark">★ {anime.score}</span>
+                  </div>
+
+                  <div className="d-flex justify-content-between align-items-center">
+                    <HeartSwitch
+                      className="favourite-btn"
+                      size="sm"
+                      inactiveColor="white"
+                      activeColor="#ff0000"
+                      data-movie-id={anime.mal_id}
+                      onClick={() => HandleHeartClick(animeData)}
+                      checked={favs.find((fav) => fav.id === anime.mal_id) ? true : false}
+                    />
                     <Link
-                      className="btn btn-info btn btn-info bg-dark  text-white mt-2 d-flex justify-content-center"
-                      to={`/detalle?MovieID=${e.id}`}
+                      className="btn btn-sm btn-outline-light"
+                      to={`/detalle?id=${anime.mal_id}`}
                     >
-                      Detail{" "}
+                      Details
                     </Link>
                   </div>
-                </div>
                 </div>
               </div>
             </div>
           );
         })}
-        <div className=" d-flex justify-content-center mt-5">
-          <Pagination
-            totalPosts={movieDat.length}
-            postsPerPage={postsPerPage}
-            paging={paging}
-          />
-        </div>
+      </div>
+
+      {/* Simple Pagination Controls for API */}
+      <div className="d-flex justify-content-center mt-5 mb-5">
+        <nav aria-label="Page navigation">
+          <ul className="pagination">
+            <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+              <button className="page-link bg-dark text-white" onClick={() => paging(currentPage - 1)}>Previous</button>
+            </li>
+            <li className="page-item disabled">
+              <span className="page-link bg-dark text-white">Page {currentPage}</span>
+            </li>
+            <li className={`page-item ${pagination.has_next_page ? '' : 'disabled'}`}>
+              <button className="page-link bg-dark text-white" onClick={() => paging(currentPage + 1)}>Next</button>
+            </li>
+          </ul>
+        </nav>
       </div>
     </>
   );
 };
+

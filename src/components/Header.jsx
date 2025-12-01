@@ -5,7 +5,7 @@ import { Busqueda } from "./Busqueda";
 import { useAuth } from "./Context/authContext";
 import { useNavigate } from "react-router-dom";
 import DarkModeToggle from "./DarkModeToggle";
-import bootstrap from 'bootstrap' ;
+import bootstrap from 'bootstrap';
 import { useState } from "react";
 export const Header = (favs) => {
   const navigate = useNavigate();
@@ -19,9 +19,9 @@ export const Header = (favs) => {
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark custom-navbar">
-      
+
       <div className="container-fluid">
-       {/*  <a className="navbar-brand" href="#">
+        {/*  <a className="navbar-brand" href="#">
           Movies App
         </a> */}
         <button
@@ -32,11 +32,10 @@ export const Header = (favs) => {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div
-          className={`collapse navbar-collapse ${
-            isMobileMenuOpen ? "show" : ""
-          }`}
+          className={`collapse navbar-collapse ${isMobileMenuOpen ? "show" : ""
+            }`}
         >
-         
+
           <ul className="navbar-nav text-nowrap">
             {/* <li className="nav-item">
               <Link className="nav-link active" aria-current="page" to="/">
@@ -52,6 +51,13 @@ export const Header = (favs) => {
               <li className="nav-item">
                 <Link className="nav-link" to="/favoritos">
                   Favoritos
+                </Link>
+              </li>
+            )}
+            {user && (
+              <li className="nav-item">
+                <Link className="nav-link" to="/profile">
+                  Profile
                 </Link>
               </li>
             )}
@@ -81,13 +87,13 @@ export const Header = (favs) => {
             )}
             <Busqueda />
           </div>
-          
+
         </div>
       </div>
       <div className="dark-mode-toggle-container">
-            <DarkModeToggle />
+        <DarkModeToggle />
 
-          </div>
+      </div>
     </nav>
   );
 };
