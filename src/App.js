@@ -22,6 +22,9 @@ import { ProtectedRoute } from "./components/ProtectedRoute";
 import { useAuth } from "./components/Context/authContext";
 import { ResetPassword } from "./components/ResetPassword";
 import { PerfilUsuario } from "./components/PerfilUsuario";
+import { Recommendations } from "./components/Recommendations";
+import { HotCharacters } from "./components/HotCharacters";
+import { BrutalMoments } from "./components/BrutalMoments";
 
 const App = () => {
   const [favs, setFavs] = useState([]);
@@ -142,6 +145,9 @@ const App = () => {
               }
             />
             <Route exact path="/profile" element={<ProtectedRoute><PerfilUsuario /></ProtectedRoute>} />
+            <Route exact path="/recommendations" element={<Recommendations />} />
+            <Route exact path="/nsfw/hot-characters" element={<ProtectedRoute><HotCharacters /></ProtectedRoute>} />
+            <Route exact path="/nsfw/brutal-moments" element={<ProtectedRoute><BrutalMoments /></ProtectedRoute>} />
 
           </Routes>
         </AuthProvider>

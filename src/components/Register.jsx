@@ -45,7 +45,7 @@ export const Register = () => {
     return errors;
   }
 
-  const { signUp } = useAuth();
+  const { signUp, loginWithGoogle } = useAuth();
 
   const handlePass = () => {
     if (user.password !== user.confirmPassword) {
@@ -115,140 +115,162 @@ export const Register = () => {
 
   return (
     <>
-      <div className="login-page bg-light">
+      <div className="login-page" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', paddingTop: '80px' }}>
         <div className="container">
-          <div className="row">
-            <div className="col-lg-10 offset-lg-1">
-              <h3 className="mb-3 text-muted">Register Now</h3>
-              <div className="bg-white shadow rounded">
-                <div className="row">
-                  <div className="col-md-7 pe-0">
-                    <div className="form-left h-100 py-5 px-5">
-                      <form onSubmit={handleSubmit} className="row g-4">
-                        <div className="text-muted">
-                          {error && <p className="text-danger">{error}</p>}
+          <div className="row justify-content-center">
+            <div className="col-lg-8">
+              <div className="glass-panel text-white">
+                <h3 className="mb-4 text-center neon-text">Register Now</h3>
+                <div className="row justify-content-center">
+                  <div className="col-md-10">
+                    <form onSubmit={handleSubmit} className="row g-4">
+                      <div className="text-center">
+                        {error && <div className="alert alert-danger">{error}</div>}
+                      </div>
+
+                      <div className="col-md-6">
+                        <label className="form-label text-secondary">
+                          Username<span className="text-danger">*</span>
+                        </label>
+                        <div className="input-group">
+                          <span className="input-group-text bg-dark border-secondary text-secondary">
+                            <i className="bi bi-person-fill"></i>
+                          </span>
+                          <input
+                            type="text"
+                            name="username"
+                            className="form-control bg-dark text-white border-secondary"
+                            placeholder="Enter Username"
+                            onChange={handleChange}
+                            required
+                          />
                         </div>
+                      </div>
+
+                      <div className="col-md-6">
+                        <label className="form-label text-secondary">
+                          Email<span className="text-danger">*</span>
+                        </label>
+                        <div className="input-group">
+                          <span className="input-group-text bg-dark border-secondary text-secondary">
+                            <i className="bi bi-envelope-fill"></i>
+                          </span>
+                          <input
+                            type="email"
+                            name="email"
+                            className="form-control bg-dark text-white border-secondary"
+                            placeholder="Enter Email"
+                            onChange={handleChange}
+                            required
+                          />
+                        </div>
+                      </div>
+
+                      <div className="col-12">
+                        <label className="form-label text-secondary">
+                          Date of Birth<span className="text-danger">*</span>
+                        </label>
+                        <div className="input-group">
+                          <span className="input-group-text bg-dark border-secondary text-secondary">
+                            <i className="bi bi-calendar-date"></i>
+                          </span>
+                          <input
+                            type="date"
+                            name="dob"
+                            className="form-control bg-dark text-white border-secondary"
+                            onChange={handleChange}
+                            required
+                          />
+                        </div>
+                      </div>
+
+                      {isOver18 && (
                         <div className="col-12">
-                          <label className="text-muted">
-                            Email<span className="text-danger">*</span>
-                          </label>
-                          <div className="input-group">
-                            <div className="input-group-text">
-                              <i className="bi bi-envelope-fill"></i>
-                            </div>
+                          <div className="form-check form-switch">
                             <input
-                              type="email"
-                              name="email"
-                              className="form-control text-muted"
-                              placeholder="Enter Email"
+                              className="form-check-input"
+                              type="checkbox"
+                              name="showNSFW"
+                              id="nsfwCheck"
+                              checked={user.showNSFW}
                               onChange={handleChange}
-                              required
                             />
+                            <label className="form-check-label text-secondary" htmlFor="nsfwCheck">
+                              Show NSFW Content (18+)
+                            </label>
                           </div>
                         </div>
-                        <div className="col-12">
-                          <label className="text-muted">
-                            Username<span className="text-danger">*</span>
-                          </label>
-                          <div className="input-group">
-                            <div className="input-group-text">
-                              <i className="bi bi-person-fill"></i>
-                            </div>
-                            <input
-                              type="text"
-                              name="username"
-                              className="form-control text-muted"
-                              placeholder="Enter Username"
-                              onChange={handleChange}
-                              required
-                            />
-                          </div>
+                      )}
+
+                      <div className="col-md-6">
+                        <label className="form-label text-secondary">
+                          Password<span className="text-danger">*</span>
+                        </label>
+                        <div className="input-group">
+                          <span className="input-group-text bg-dark border-secondary text-secondary">
+                            <i className="bi bi-lock-fill"></i>
+                          </span>
+                          <input
+                            onChange={handleChange}
+                            type="password"
+                            name="password"
+                            className="form-control bg-dark text-white border-secondary"
+                            placeholder="Enter Password"
+                            required
+                          />
+                        </div>
+                      </div>
+
+                      <div className="col-md-6">
+                        <label className="form-label text-secondary">
+                          Confirm Password<span className="text-danger">*</span>
+                        </label>
+                        <div className="input-group">
+                          <span className="input-group-text bg-dark border-secondary text-secondary">
+                            <i className="bi bi-lock-fill"></i>
+                          </span>
+                          <input
+                            onChange={handleChange}
+                            type="password"
+                            name="confirmPassword"
+                            className="form-control bg-dark text-white border-secondary"
+                            placeholder="Confirm Password"
+                            required
+                          />
+                        </div>
+                      </div>
+
+                      <div className="col-12 mt-4">
+                        <button
+                          type="submit"
+                          className="btn btn-primary w-100 mb-3"
+                        >
+                          Register
+                        </button>
+
+                        <div className="d-flex align-items-center mb-3">
+                          <hr className="flex-grow-1 border-secondary" />
+                          <span className="mx-3 text-muted">OR</span>
+                          <hr className="flex-grow-1 border-secondary" />
                         </div>
 
-                        <div className="col-12">
-                          <label className="text-muted">
-                            Date of Birth<span className="text-danger">*</span>
-                          </label>
-                          <div className="input-group">
-                            <div className="input-group-text">
-                              <i className="bi bi-calendar-date"></i>
-                            </div>
-                            <input
-                              type="date"
-                              name="dob"
-                              className="form-control text-muted"
-                              onChange={handleChange}
-                              required
-                            />
-                          </div>
-                        </div>
-
-                        {isOver18 && (
-                          <div className="col-12">
-                            <div className="form-check">
-                              <input
-                                className="form-check-input"
-                                type="checkbox"
-                                name="showNSFW"
-                                id="nsfwCheck"
-                                checked={user.showNSFW}
-                                onChange={handleChange}
-                              />
-                              <label className="form-check-label text-muted" htmlFor="nsfwCheck">
-                                Show NSFW Content (18+)
-                              </label>
-                            </div>
-                          </div>
-                        )}
-
-                        <div className="col-12">
-                          <label className="text-muted">
-                            Password<span className="text-danger">*</span>
-                          </label>
-                          <div className="input-group">
-                            <div className="input-group-text">
-                              <i className="bi bi-lock-fill"></i>
-                            </div>
-                            <input
-                              onChange={handleChange}
-                              type="password"
-                              name="password"
-                              className="form-control text-muted"
-                              placeholder="Enter Password"
-                              required
-                            />
-                          </div>
-                        </div>
-
-                        <div className="col-12">
-                          <label className="text-muted">
-                            Confirm Password
-                            <span className="text-danger">*</span>
-                          </label>
-                          <div className="input-group">
-                            <div className="input-group-text">
-                              <i className="bi bi-lock-fill"></i>
-                            </div>
-                            <input
-                              onChange={handleChange}
-                              type="password"
-                              name="confirmPassword"
-                              className="form-control text-muted"
-                              placeholder="Confirm Password"
-                              required
-                            />
-                          </div>
-                        </div>
-                        <div className="col-12">
-                          <button
-                            type="submit"
-                            className="btn btn-primary px-4 float-end mt-4"
-                          >
-                            Register
-                          </button>
-                        </div>
-                      </form>
-                    </div>
+                        <button
+                          type="button"
+                          className="btn btn-outline-light w-100"
+                          onClick={async () => {
+                            try {
+                              await loginWithGoogle();
+                              navigate("/");
+                            } catch (error) {
+                              setError(error.message);
+                            }
+                          }}
+                        >
+                          <i className="bi bi-google me-2"></i>
+                          Sign up with Google
+                        </button>
+                      </div>
+                    </form>
                   </div>
                 </div>
               </div>

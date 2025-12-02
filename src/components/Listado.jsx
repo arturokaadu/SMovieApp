@@ -97,6 +97,12 @@ export const Listado = ({
 
   return (
     <>
+      <div className="container mt-4">
+        <h2 className="text-white mb-4">
+          <i className="bi bi-fire me-2" style={{ color: '#ff0055' }}></i>
+          Trending Anime
+        </h2>
+      </div>
       <div className="row">
         {animeList.map((anime, index) => {
           const animeData = {
@@ -111,12 +117,14 @@ export const Listado = ({
             <div className="col-md-3 col-sm-6 col-12" key={anime.mal_id}>
               <div className="card text-white my-4 anime-card glass-card" style={{ overflow: 'hidden', border: 'none' }}>
                 <div style={{ position: 'relative' }}>
-                  <img
-                    src={anime.images.jpg.large_image_url}
-                    className="card-img-top"
-                    alt={anime.title}
-                    style={{ height: '300px', objectFit: 'cover' }}
-                  />
+                  <Link to={`/detalle?id=${anime.mal_id}`}>
+                    <img
+                      src={anime.images.jpg.large_image_url}
+                      className="card-img-top"
+                      alt={anime.title}
+                      style={{ height: '300px', objectFit: 'cover', cursor: 'pointer' }}
+                    />
+                  </Link>
                   <div style={{ position: 'absolute', top: '10px', right: '10px' }}>
                     <span className={`badge ${anime.status === 'Currently Airing' ? 'bg-success' : 'bg-primary'}`}>
                       {anime.status === 'Currently Airing' ? 'Airing' : anime.status}

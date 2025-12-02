@@ -18,13 +18,13 @@ export const Login = () => {
     } catch (error) {
       console.log(error.code);
       if (error.code === "auth/internal-error") {
-        
+
         setError("correo o contraseña inválidos");
       }
-      else if (error.code === "auth/wrong-password"){
+      else if (error.code === "auth/wrong-password") {
         setError("contraseña inválida")
-      } 
-      else if (error.code === "auth/user-not-found"){
+      }
+      else if (error.code === "auth/user-not-found") {
         setError("Usuario Inválido")
       }
     }
@@ -46,7 +46,7 @@ export const Login = () => {
     confirmPassword: "",
   });
 
-  const { login } = useAuth();
+  const { login, loginWithGoogle } = useAuth();
 
   const handleChange = ({ target: { name, value } }) => {
     setUser({ ...user, [name]: value });
@@ -114,6 +114,22 @@ export const Login = () => {
                         </div>
                       </form>
 
+                      <hr className="my-4" />
+                      <button
+                        className="btn btn-outline-danger w-100 mb-3"
+                        onClick={async () => {
+                          try {
+                            await loginWithGoogle();
+                            navigate("/");
+                          } catch (error) {
+                            setError("Error logging in with Google");
+                          }
+                        }}
+                      >
+                        <i className="bi bi-google me-2"></i>
+                        Login with Google
+                      </button>
+
                       <div className="col-12">
                         <Link to="/register" className="linkci text-muted">
                           <span className="text-muted">
@@ -121,7 +137,7 @@ export const Login = () => {
                           </span>
                         </Link>
                       </div>
-                      
+
                       <div className="col-12">
                         <Link to="/resetPassword" className="linkci text-muted">
                           <span className="text-muted">

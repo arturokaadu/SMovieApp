@@ -87,3 +87,25 @@ export const searchCharacters = async (query) => {
     throw error;
   }
 };
+
+export const getAnimeEpisodes = async (id, page = 1) => {
+  try {
+    const response = await axios.get(`${API_URL}/anime/${id}/episodes`, {
+      params: { page }
+    });
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching episodes for anime ${id}:`, error);
+    throw error;
+  }
+};
+
+export const getAnimeVideos = async (id) => {
+  try {
+    const response = await axios.get(`${API_URL}/anime/${id}/videos`);
+    return response.data.data;
+  } catch (error) {
+    console.error(`Error fetching videos for anime ${id}:`, error);
+    throw error;
+  }
+};

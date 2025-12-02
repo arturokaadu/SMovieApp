@@ -24,7 +24,7 @@ export const Busqueda = () => {
           className="form-control"
           type="text"
           name="keyword"
-          placeholder="Search movies"
+          placeholder="Search Anime"
         />
       </label>
       <button className="btn btn-success ml-2" type="submit">

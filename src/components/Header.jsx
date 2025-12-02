@@ -9,21 +9,21 @@ import bootstrap from 'bootstrap';
 import { useState } from "react";
 export const Header = (favs) => {
   const navigate = useNavigate();
-  const { user, logout, loading } = useAuth();
+  const { user, logout, loading, isAdult } = useAuth();
   const handleLogout = async () => {
     await logout();
     navigate("/login");
   };
-  // if(loading) return <h1>Loading</h1>
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark custom-navbar">
 
       <div className="container-fluid">
-        {/*  <a className="navbar-brand" href="#">
-          Movies App
-        </a> */}
+        <Link className="navbar-brand neon-text fw-bold" to="/">
+          <i className="bi bi-play-circle-fill me-2"></i>
+          AnimeNexus
+        </Link>
         <button
           className="navbar-toggler"
           type="button"
@@ -36,24 +36,61 @@ export const Header = (favs) => {
             }`}
         >
 
-          <ul className="navbar-nav text-nowrap">
-            {/* <li className="nav-item">
-              <Link className="nav-link active" aria-current="page" to="/">
-                Home
-              </Link>
-            </li> */}
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0 text-nowrap">
             <li className="nav-item">
               <Link className="nav-link" to="/">
-                Peliculas más recientes
+                <i className="bi bi-fire me-1"></i>
+                Trending
               </Link>
             </li>
-            {user && favs.favs.length > 0 && (
-              <li className="nav-item">
-                <Link className="nav-link" to="/favoritos">
-                  Favoritos
-                </Link>
+
+            {/* Explore Dropdown */}
+            <li className="nav-item dropdown">
+              <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                <i className="bi bi-compass me-1"></i> Explore
+              </a>
+              <ul className="dropdown-menu dropdown-menu-dark glass-panel p-0 border-0">
+                <li><Link className="dropdown-item" to="/genre/action">Action</Link></li>
+                <li><Link className="dropdown-item" to="/genre/adventure">Adventure</Link></li>
+                <li><Link className="dropdown-item" to="/genre/comedy">Comedy</Link></li>
+                <li><Link className="dropdown-item" to="/genre/drama">Drama</Link></li>
+                <li><Link className="dropdown-item" to="/genre/fantasy">Fantasy</Link></li>
+                <li><Link className="dropdown-item" to="/genre/horror">Horror</Link></li>
+                <li><Link className="dropdown-item" to="/genre/mystery">Mystery</Link></li>
+                <li><Link className="dropdown-item" to="/genre/romance">Romance</Link></li>
+                <li><Link className="dropdown-item" to="/genre/sci-fi">Sci-Fi</Link></li>
+                <li><Link className="dropdown-item" to="/genre/shonen">Shonen</Link></li>
+                <li><Link className="dropdown-item" to="/genre/seinen">Seinen</Link></li>
+                <li><Link className="dropdown-item" to="/genre/shoujo">Shoujo</Link></li>
+                <li><Link className="dropdown-item" to="/genre/slice-of-life">Slice of Life</Link></li>
+                <li><Link className="dropdown-item" to="/genre/sports">Sports</Link></li>
+                <li><Link className="dropdown-item" to="/genre/supernatural">Supernatural</Link></li>
+                <li><Link className="dropdown-item" to="/genre/thriller">Thriller</Link></li>
+                <li><hr className="dropdown-divider" /></li>
+                <li><Link className="dropdown-item" to="/top-movies">Top Movies</Link></li>
+              </ul>
+            </li>
+
+            <li className="nav-item">
+              <Link className="nav-link" to="/recommendations">
+                <i className="bi bi-gem me-1" style={{ color: '#00d4ff' }}></i>
+                Hidden Gems
+              </Link>
+            </li>
+
+            {/* NSFW Menu (18+ Only) */}
+            {user && user.dob && isAdult(user.dob) && (
+              <li className="nav-item dropdown">
+                <a className="nav-link dropdown-toggle text-danger" href="#" role="button" data-bs-toggle="dropdown">
+                  <i className="bi bi-exclamation-diamond-fill me-1"></i> NSFW
+                </a>
+                <ul className="dropdown-menu dropdown-menu-dark glass-panel p-0 border-0">
+                  <li><Link className="dropdown-item text-danger" to="/nsfw/hot-characters">Hot Characters</Link></li>
+                  <li><Link className="dropdown-item text-danger" to="/nsfw/brutal-moments">Brutal Moments</Link></li>
+                </ul>
               </li>
             )}
+
             {user && (
               <li className="nav-item">
                 <Link className="nav-link" to="/profile">
@@ -61,40 +98,50 @@ export const Header = (favs) => {
                 </Link>
               </li>
             )}
+
             {user && favs.favs.length > 0 && (
               <li className="nav-item">
-                <span className="nav-link disabled text-success">
-                  Peliculas en Favoritos: {favs.favs.length}
-                </span>
+                <Link className="nav-link" to="/favoritos">
+                  <i className="bi bi-heart-fill me-1 text-danger"></i>
+                  Favorites ({favs.favs.length})
+                </Link>
               </li>
             )}
           </ul>
-          <div className="btn-group">
+
+          <div className="d-flex align-items-center gap-2">
+            <Busqueda />
+
             {user ? (
               <button
-                className="btn btn-outline-warning"
+                className="btn btn-outline-warning btn-sm"
                 onClick={handleLogout}
               >
                 Logout
               </button>
             ) : (
-              <button
-                className="btn btn-outline-warning"
-                onClick={handleLogout}
-              >
-                Login
-              </button>
+              <div className="btn-group">
+                <button
+                  className="btn btn-outline-light btn-sm"
+                  onClick={() => navigate("/login")}
+                >
+                  Login
+                </button>
+                <button
+                  className="btn btn-primary btn-sm"
+                  onClick={() => navigate("/register")}
+                >
+                  Sign Up
+                </button>
+              </div>
             )}
-            <Busqueda />
           </div>
 
         </div>
       </div>
       <div className="dark-mode-toggle-container">
         <DarkModeToggle />
-
       </div>
     </nav>
   );
 };
-

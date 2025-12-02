@@ -5,8 +5,9 @@ import {
   onAuthStateChanged,
   signOut,
   sendPasswordResetEmail,
+  signInWithPopup,
 } from "firebase/auth";
-import { auth, db } from "../../firebase";
+import { auth, db, googleProvider } from "../../firebase";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 
 export const authContext = createContext();
@@ -47,12 +48,60 @@ export const AuthProvider = ({ children }) => {
     console.log(userCredentials);
   };
 
+  const loginWithGoogle = async () => {
+    const userCredentials = await signInWithPopup(auth, googleProvider);
+    const user = userCredentials.user;
+
+    // Check if user exists in Firestore
+    const docRef = doc(db, "users", user.uid);
+    const docSnap = await getDoc(docRef);
+
+    if (!docSnap.exists()) {
+      // Create new user doc for Google user
+      await setDoc(docRef, {
+        username: user.displayName,
+        email: user.email,
+        dob: null, // Will need to be set in profile
+        settings: {
+          showNSFW: false
+        },
+        createdAt: new Date()
+      });
+    }
+
+    return userCredentials;
+  };
+
   const logout = () => {
     signOut(auth);
   };
 
   const resetPassword = (email) => {
     sendPasswordResetEmail(auth, email);
+  };
+
+  // Helper function to check if user is adult (18+)
+  const isAdult = (dob) => {
+    if (!dob) return false;
+    const birthDate = new Date(dob);
+    const today = new Date();
+    const age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+      return age - 1 >= 18;
+    }
+    return age >= 18;
+  };
+
+  // Update user settings in Firestore
+  const updateUserSettings = async (settings) => {
+    if (!user) return;
+    const docRef = doc(db, "users", user.uid);
+    await setDoc(docRef, { settings }, { merge: true });
+
+    // Update local user state
+    setUser({ ...user, settings: { ...user.settings, ...settings } });
   };
 
   useEffect(() => {
@@ -79,7 +128,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <authContext.Provider value={{ signUp, login, resetPassword, user, logout, loading }}>
+    <authContext.Provider value={{ signUp, login, loginWithGoogle, resetPassword, user, logout, loading, isAdult, updateUserSettings }}>
       {children}
     </authContext.Provider>
   );

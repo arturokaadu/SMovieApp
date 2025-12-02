@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import swal from "@sweetalert/with-react";
 import { useAuth } from "../components/Context/authContext";
-import { getAnimeDetails, getAnimeCharacters } from "../services/animeService";
+import { getAnimeDetails, getAnimeCharacters, getAnimeVideos } from "../services/animeService";
 import defaultImage from '../Assets/default.jpg';
 import { Reviews } from "./Reviews";
+import { EpisodeList } from "./EpisodeList";
 
 export const Detalle = () => {
   let query = new URLSearchParams(window.location.search);
@@ -15,9 +16,11 @@ export const Detalle = () => {
 
   const [details, setDetails] = useState(null);
   const [characters, setCharacters] = useState([]);
+  const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showNSFWWarning, setShowNSFWWarning] = useState(false);
   const [contentRevealed, setContentRevealed] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,6 +41,9 @@ export const Detalle = () => {
 
         const charsData = await getAnimeCharacters(animeID);
         setCharacters(charsData.slice(0, 10)); // Top 10 characters
+
+        const videosData = await getAnimeVideos(animeID);
+        setVideos(videosData.promo || []);
       } catch (error) {
         console.error("Error fetching details:", error);
         swal(<h5>Error loading anime details</h5>);
@@ -122,20 +128,76 @@ export const Detalle = () => {
               <h1 className="display-4 fw-bold">{details.title}</h1>
               <p className="lead">{details.title_japanese}</p>
               <div className="mb-3">
-                <span className="badge bg-primary me-2">{details.type}</span>
-                <span className="badge bg-success me-2">{details.status}</span>
-                <span className="badge bg-warning text-dark me-2">Score: {details.score}</span>
-                <span className="badge bg-info text-dark">{details.rating}</span>
+                <span className={`badge ${details.status === 'Currently Airing' ? 'bg-success' : 'bg-primary'} me-2`}>
+                  <i className="bi bi-broadcast me-1"></i>
+                  {details.status === 'Currently Airing' ? '🔴 AIRING' : '✓ FINISHED'}
+                </span>
+                <span className="badge bg-warning text-dark me-2">
+                  <i className="bi bi-star-fill me-1"></i>
+                  Score: {details.score || 'N/A'}
+                </span>
+                <span className="badge bg-info text-dark me-2">{details.rating}</span>
+                {details.source && details.source.toLowerCase().includes('manga') && (
+                  <span className="badge bg-purple text-white">
+                    <i className="bi bi-book me-1"></i>
+                    Based on Manga
+                  </span>
+                )}
               </div>
+
+              {/* Large Score Display */}
+              {details.score && (
+                <div className="mb-3">
+                  <div className="d-inline-block p-3 rounded" style={{ background: 'rgba(255,0,85,0.2)', border: '2px solid #ff0055' }}>
+                    <h2 className="mb-0">
+                      <i className="bi bi-star-fill" style={{ color: '#ffd700' }}></i>
+                      <span className="ms-2" style={{ fontSize: '2.5rem', fontWeight: 'bold', color: '#ffd700' }}>
+                        {details.score}
+                      </span>
+                      <span className="text-muted">/10</span>
+                    </h2>
+                  </div>
+                </div>
+              )}
               <p className="lead">{details.synopsis}</p>
 
               {/* Manga Relation Info (if available) */}
               {/* This requires parsing 'relations' from API, keeping it simple for now */}
 
-              {details.trailer?.embed_url && (
-                <a href={details.trailer.url} target="_blank" rel="noopener noreferrer" className="btn btn-danger btn-lg mt-3">
-                  <i className="bi bi-youtube"></i> Watch Trailer
-                </a>
+              {/* Video Player Overlay */}
+              {isPlaying && details.trailer?.embed_url ? (
+                <div className="ratio ratio-16x9 mt-3 shadow-lg rounded" style={{ border: '2px solid #ff0055' }}>
+                  <iframe
+                    src={`${details.trailer.embed_url}?autoplay=1`}
+                    title="Trailer"
+                    allowFullScreen
+                    allow="autoplay"
+                  ></iframe>
+                  <button
+                    className="btn btn-sm btn-danger position-absolute top-0 end-0 m-2"
+                    onClick={() => setIsPlaying(false)}
+                  >
+                    <i className="bi bi-x-lg"></i> Close
+                  </button>
+                </div>
+              ) : (
+                <>
+                  {details.trailer?.url && (
+                    <a href={details.trailer.url} target="_blank" rel="noopener noreferrer" className="btn btn-danger btn-lg mt-3 me-2">
+                      <i className="bi bi-youtube me-2"></i>
+                      Watch on YouTube
+                    </a>
+                  )}
+                  {details.trailer?.embed_url && (
+                    <button
+                      className="btn btn-outline-light btn-lg mt-3"
+                      onClick={() => setIsPlaying(true)}
+                    >
+                      <i className="bi bi-play-circle me-2"></i>
+                      Play Inline
+                    </button>
+                  )}
+                </>
               )}
             </div>
           </div>
@@ -181,6 +243,40 @@ export const Detalle = () => {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+
+        {/* Clips & Moments Section */}
+        {videos.length > 0 && (
+          <div className="row mb-5">
+            <div className="col-12">
+              <h3 className="mb-4 border-bottom pb-2">Clips & Moments</h3>
+              <div className="row">
+                {videos.slice(0, 3).map((video, index) => (
+                  <div className="col-md-4 mb-4" key={index}>
+                    <div className="card glass-card h-100">
+                      <div className="ratio ratio-16x9">
+                        <iframe
+                          src={video.trailer.embed_url}
+                          title={video.title}
+                          allowFullScreen
+                        ></iframe>
+                      </div>
+                      <div className="card-body">
+                        <h6 className="card-title text-white">{video.title}</h6>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Episode List Section */}
+        <div className="row mb-5">
+          <div className="col-12">
+            <EpisodeList animeId={animeID} />
           </div>
         </div>
 

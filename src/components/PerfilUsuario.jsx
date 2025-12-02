@@ -7,7 +7,7 @@ import swal from "@sweetalert/with-react";
 import { useNavigate } from "react-router-dom";
 
 export const PerfilUsuario = () => {
-    const { user, logout } = useAuth();
+    const { user, logout, isAdult, updateUserSettings } = useAuth();
     const navigate = useNavigate();
     const [topCharacters, setTopCharacters] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
@@ -118,6 +118,48 @@ export const PerfilUsuario = () => {
                     <button className="btn btn-danger" onClick={handleLogout}>Logout</button>
                 </div>
             </div>
+
+            {/* NSFW Settings Section */}
+            {user?.dob && (
+                <div className="row mb-5">
+                    <div className="col-12 col-md-6 mx-auto">
+                        <div className="card glass-card text-white">
+                            <div className="card-body">
+                                <h5 className="card-title mb-3">Content Settings</h5>
+                                <div className="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <strong>Show NSFW Content</strong>
+                                        <p className="text-muted small mb-0">
+                                            {isAdult(user.dob)
+                                                ? "You can toggle sensitive content visibility"
+                                                : "Available for users 18+"}
+                                        </p>
+                                    </div>
+                                    <div className="form-check form-switch">
+                                        <input
+                                            className="form-check-input"
+                                            type="checkbox"
+                                            role="switch"
+                                            id="nsfwToggle"
+                                            checked={user?.settings?.showNSFW || false}
+                                            onChange={async (e) => {
+                                                if (!isAdult(user.dob)) {
+                                                    swal("Restricted", "You must be 18+ to enable this setting", "warning");
+                                                    return;
+                                                }
+                                                await updateUserSettings({ showNSFW: e.target.checked });
+                                                swal("Updated!", `NSFW content ${e.target.checked ? 'enabled' : 'disabled'}`, "success");
+                                            }}
+                                            disabled={!isAdult(user.dob)}
+                                            style={{ cursor: isAdult(user.dob) ? 'pointer' : 'not-allowed' }}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {/* Top 50 Characters Section */}
             <div className="row">
