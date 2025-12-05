@@ -31,10 +31,10 @@ Built with performance and aesthetics in mind, it features a custom **Dark Mode*
 
 | Feature | Description | Preview |
 | :--- | :--- | :--- |
-| **Mood Explorer** 😃 | **Don't know what to watch?** Tell us how you feel (Hype, Chill, Sad, etc.) and we'll recommend the perfect anime. | ![Mood Explorer](https://via.placeholder.com/300x150?text=Mood+Explorer+UI) |
-| **Direct Soundtracks** 🎵 | Listen to your favorite Openings & Endings directly. **One-click YouTube search** for instant gratification. | ![Soundtracks](https://via.placeholder.com/300x150?text=Soundtracks+UI) |
-| **NSFW Fanservice** 🔞 | **Age-Gated Content**. Curated "Brutal Moments" and "Hot Characters" with **video clips** (not just images). | ![NSFW Content](https://via.placeholder.com/300x150?text=NSFW+Clips+UI) |
-| **Manga Guide** 📖 | Smart guide that tells you **exactly where to start reading** the manga after the anime ends. | ![Manga Guide](https://via.placeholder.com/300x150?text=Manga+Guide+UI) |
+| **Mood Explorer** 😃 | **Don't know what to watch?** Tell us how you feel (Hype, Chill, Sad, etc.) and we'll recommend the perfect anime. | ![Mood Explorer](assets/mood_explorer.png) |
+| **Direct Soundtracks** 🎵 | Listen to your favorite Openings & Endings directly. **One-click YouTube search** for instant gratification. | ![Soundtracks](assets/soundtracks.png) |
+| **NSFW Fanservice** 🔞 | **Age-Gated Content**. Curated "Brutal Moments" and "Hot Characters" with **video clips** (not just images). | ![NSFW Content](assets/home_hero.png) |
+| **Manga Guide** 📖 | Smart guide that tells you **exactly where to start reading** the manga after the anime ends. | ![Manga Guide](assets/manga_guide.png) |
 
 ### 🛠️ Other Features
 *   **Authentication:** Secure login and registration.
@@ -97,10 +97,10 @@ Construida pensando en el rendimiento y la estética, cuenta con **Modo Oscuro**
 
 | Feature | Description | Preview |
 | :--- | :--- | :--- |
-| **Mood Explorer** 😃 | **Don't know what to watch?** Tell us how you feel (Hype, Chill, Sad, etc.) and we'll recommend the perfect anime. | ![Mood Explorer](https://via.placeholder.com/300x150?text=Mood+Explorer+UI) |
-| **Direct Soundtracks** 🎵 | Listen to your favorite Openings & Endings directly. **One-click YouTube search** for instant gratification. | ![Soundtracks](https://via.placeholder.com/300x150?text=Soundtracks+UI) |
-| **NSFW Fanservice** 🔞 | **Age-Gated Content**. Curated "Brutal Moments" and "Hot Characters" with **video clips** (not just images). | ![NSFW Content](https://via.placeholder.com/300x150?text=NSFW+Clips+UI) |
-| **Manga Guide** 📖 | Smart guide that tells you **exactly where to start reading** the manga after the anime ends. | ![Manga Guide](https://via.placeholder.com/300x150?text=Manga+Guide+UI) |
+| **Mood Explorer** 😃 | **Don't know what to watch?** Tell us how you feel (Hype, Chill, Sad, etc.) and we'll recommend the perfect anime. | ![Mood Explorer](assets/mood_explorer.png) |
+| **Direct Soundtracks** 🎵 | Listen to your favorite Openings & Endings directly. **One-click YouTube search** for instant gratification. | ![Soundtracks](assets/soundtracks.png) |
+| **NSFW Fanservice** 🔞 | **Age-Gated Content**. Curated "Brutal Moments" and "Hot Characters" with **video clips** (not just images). | ![NSFW Content](assets/home_hero.png) |
+| **Manga Guide** 📖 | Smart guide that tells you **exactly where to start reading** the manga after the anime ends. | ![Manga Guide](assets/manga_guide.png) |
 
 ### 🛠️ Other Features
 *   **Authentication:** Secure login and registration.
