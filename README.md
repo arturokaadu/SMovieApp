@@ -3,6 +3,7 @@
 [![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&style=flat-square)](https://reactjs.org/)
 [![Firebase](https://img.shields.io/badge/Firebase-Auth-FFCA28?logo=firebase&style=flat-square)](https://firebase.google.com/)
 [![Styled Components](https://img.shields.io/badge/Styled_Components-CSS_in_JS-DB7093?logo=styled-components&style=flat-square)](https://styled-components.com/)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen?style=flat-square&logo=vercel)](https://animenexusapp-55u7j8rft-arturokaadus-projects.vercel.app/)
 
 [English](#english) | [Español](#español)
 
@@ -13,6 +14,12 @@
 **AnimeNexus** is a modern, feature-rich web application designed for anime enthusiasts. It provides a comprehensive platform to discover movies, TV series, and explore detailed character information.
 
 Built with performance and aesthetics in mind, it features a custom **Dark Mode**, **NSFW content gating**, and a seamless user experience powered by **React** and **Jikan API (MyAnimeList)**.
+
+> [!NOTE]
+> **Live Demo & Login:**
+> To experience the full app (including profile and NSFW sections), you can register a new account or use the test credentials:
+> - **Email:** `test@user.com` (or register your own)
+> - **Password:** `123456`
 
 ### 📸 Screenshots
 > *Add your screenshots here*
