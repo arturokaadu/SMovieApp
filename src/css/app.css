@@ -17,21 +17,26 @@
   border: none;
   font-size: 15px;
 }
+
 .card {
   overflow: auto;
-  border: 1px solid rgb(3, 3, 3); /* this is the default border */
-  transition: all 0.2s ease-in-out; /* this allows the border to transition smoothly */
-  
+  border: 1px solid rgb(3, 3, 3);
+  /* this is the default border */
+  transition: all 0.2s ease-in-out;
+  /* this allows the border to transition smoothly */
+
 }
 
-.card-body{
-    overflow: auto;
-    
+.card-body {
+  overflow: auto;
+
 }
 
 .card:hover {
-  border: 3px solid rgb(19, 19, 19); /* this sets the border to yellow when the card is hovered */
-  box-shadow: 0 0 10px rgb(255, 255, 3); /* this adds a yellow shadow */
+  border: 3px solid rgb(19, 19, 19);
+  /* this sets the border to yellow when the card is hovered */
+  box-shadow: 0 0 10px rgb(255, 255, 3);
+  /* this adds a yellow shadow */
 }
 
 .card-text {
@@ -54,29 +59,12 @@
 
 .card-title {
   font-family: "Montserrat", sans-serif;
-  font-size: 17px;
-  font-weight: bolder;
-  height: 50px;
 }
 
-/* .btn {
-  width: fit-content;
-} */
-
-.btn-primary {
-  background-color: #333;
-  color: #fff;
-  border-radius: 25px;
-  text-transform: capitalize;
-}
-
-.paginate{
-    display: flex;
-}
-
-.navbar-nav{
+.navbar-nav {
   display: flex;
 }
+
 .vote-average {
   width: 40px;
   height: 40px;
@@ -91,20 +79,20 @@
 }
 
 
-h2{
+h2 {
   font-family: "Montserrat", sans-serif;
   color: aliceblue;
   font-weight: bolder;
 }
 
-h5{
+h5 {
   font-family: "Montserrat", sans-serif;
   color: aliceblue;
   font-weight: bolder;
-  
+
 }
 
-p{
+p {
   font-family: "Montserrat", sans-serif;
   color: aliceblue;
   font-weight: bolder;
@@ -133,26 +121,28 @@ p{
   .vote-average {
     display: none;
   }
+
   .card-title {
     font-family: "Montserrat", sans-serif;
     font-size: 13px;
     font-weight: bolder;
     height: 50px;
   }
- /*  .col-3{
+
+  /*  .col-3{
     width: 39%;
   } */
   .hidden {
     display: none;
   }
-  
+
   .truncateText {
-    max-height: 11em; 
+    max-height: 11em;
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  
-  .dark-mode-toggle-container{
+
+  .dark-mode-toggle-container {
     margin-top: -41px;
   }
 
@@ -162,7 +152,7 @@ p{
 
 @media (max-width: 991.98px) {
   .cardImg {
-    height:100%;
+    height: 100%;
   }
 
   .card {
@@ -172,6 +162,7 @@ p{
   .vote-average {
     display: none;
   }
+
   .card-title {
     font-family: "Montserrat", sans-serif;
     font-size: 13px;
@@ -182,43 +173,54 @@ p{
   .hidden {
     display: none;
   }
-  
+
   .truncateText {
-    max-height: 11em; 
+    max-height: 11em;
     overflow: hidden;
     text-overflow: ellipsis;
   }
+
   .navbar-nav .nav-item {
     margin-right: 10px;
   }
 
-  .text-nowrap{
+  .text-nowrap {
     display: flex !important;
     flex-direction: row !important;
   }
 
   .navbar-collapse {
-    display: none; /* Oculta el contenido por defecto */
-    position: absolute; /* Ajusta la posición */
-    top: 50%; /* Alinea verticalmente al centro */
-    left: 50%; /* Alinea horizontalmente al centro */
-    transform: translate(-50%, -50%); /* Centra el contenido */
-    background-color: rgba(0, 0, 0, 0.8); /* Fondo semitransparente */
-    padding: 20px; /* Agrega espacio alrededor del contenido */
-    border-radius: 10px; /* Agrega bordes redondeados */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Sombra alrededor */
+    display: none;
+    /* Oculta el contenido por defecto */
+    position: absolute;
+    /* Ajusta la posición */
+    top: 50%;
+    /* Alinea verticalmente al centro */
+    left: 50%;
+    /* Alinea horizontalmente al centro */
+    transform: translate(-50%, -50%);
+    /* Centra el contenido */
+    background-color: rgba(0, 0, 0, 0.8);
+    /* Fondo semitransparente */
+    padding: 20px;
+    /* Agrega espacio alrededor del contenido */
+    border-radius: 10px;
+    /* Agrega bordes redondeados */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    /* Sombra alrededor */
     margin-left: 106px;
   }
 
-  .dark-mode-toggle-container{
+  .dark-mode-toggle-container {
     margin-left: auto;
     margin-top: -41px;
     margin-right: 57px;
   }
-  
+
 }
-.navbar-expand-lg .navbar-collapse{
- margin-left: 16px;
+
+.navbar-expand-lg .navbar-collapse {
+  margin-left: 16px;
 }
 
 .navbar-collapse.show {
@@ -226,14 +228,16 @@ p{
 }
 
 
-.card-container{
+.card-container {
   display: flex;
   flex-direction: column;
-  align-items: center; 
-  justify-content: space-between; 
-  height: 100%; 
-  padding: 10px; /* Add some spacing inside the container */
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 10px;
+  /* Add some spacing inside the container */
 }
+
 /* TO DO max 600 and 1024 */
 @media (max-width: 874px) {
   .navbar-collapse {
@@ -243,56 +247,64 @@ p{
 
   .dark-mode-toggle-container {
     margin-left: auto;
-/*     margin-top: 10px; */
+    /*     margin-top: 10px; */
   }
 
 }
 
 
-@media (max-width: 521px){
-  .searchbar{
-
-  }
+@media (max-width: 521px) {
+  .searchbar {}
 
   .navbar-collapse {
     display: block;
-    margin-top: 20px; }
+    margin-top: 20px;
+  }
 
 
-    .btn-group{
-      display: flex;
-      flex-direction: column;
-    }
+  .btn-group {
+    display: flex;
+    flex-direction: column;
+  }
 
- .btn-outline-warning{
-      margin-bottom: 10px;
-    }
+  .btn-outline-warning {
+    margin-bottom: 10px;
+  }
+}
 
-@media (max-width: 500px){
-  .dark-mode-toggle-container{
+@media (max-width: 500px) {
+  .dark-mode-toggle-container {
     margin-top: -41px;
   }
 }
 
-@media (max-width: 434px){
-.col-3{
-  width: 33% !important;
-}
-}
-
-@media (max-width: 380px){
-  .col-3{
+@media (max-width: 434px) {
+  .col-3 {
     width: 33% !important;
   }
-  }
-  .bg-light {
-    --bs-bg-opacity: unset !important;
-  } }
+}
 
- /*  .body{
+@media (max-width: 380px) {
+  .col-3 {
+    width: 33% !important;
+  }
+}
+
+.bg-light {
+  --bs-bg-opacity: unset !important;
+}
+
+/*  .body{
     margin: unset !important;
   } */
 
-  .row{
-    margin-right: unset !important;
-  }
+
+body.dark-mode .glass-header {
+  background: rgba(11, 12, 21, 0.85);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .dropdown-menu-dark {
+  background-color: #151f2e;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}

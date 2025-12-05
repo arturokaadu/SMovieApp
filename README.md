@@ -1,70 +1,129 @@
-# Getting Started with Create React App
+# AnimeNexus 🎬
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&style=flat-square)](https://reactjs.org/)
+[![Firebase](https://img.shields.io/badge/Firebase-Auth-FFCA28?logo=firebase&style=flat-square)](https://firebase.google.com/)
+[![Styled Components](https://img.shields.io/badge/Styled_Components-CSS_in_JS-DB7093?logo=styled-components&style=flat-square)](https://styled-components.com/)
 
-## Available Scripts
+[English](#english) | [Español](#español)
 
-In the project directory, you can run:
+---
 
-### `npm start`
+<a name="english"></a>
+## 🚀 About the Project
+**AnimeNexus** is a modern, feature-rich web application designed for anime enthusiasts. It provides a comprehensive platform to discover movies, TV series, and explore detailed character information.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Built with performance and aesthetics in mind, it features a custom **Dark Mode**, **NSFW content gating**, and a seamless user experience powered by **React** and **Jikan API (MyAnimeList)**.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 📸 Screenshots
+> *Add your screenshots here*
+>
+> ![Home Page](https://via.placeholder.com/800x400?text=Home+Page+Screenshot)
+> *Interactive Hero Section & Trending Lists*
 
-### `npm test`
+### ✨ Key Features
+*   **Authentication:** Secure login and registration using **Firstbase**.
+*   **Anime Discovery:** Search and browse anime by popularity, score, or upcoming releases.
+*   **NSFW Content:** Dedicated, 18+ age-gated sections for "Brutal Moments" and "Hot Characters" with video clips.
+*   **Manga Guide:** Smart guide to identify where the anime ends and the manga begins.
+*   **Responsive Design:** Fully optimized for mobile, tablet, and desktop.
+*   **Dark Mode:** Built-in theme toggler for comfortable viewing.
+*   **Age Verification:** Session-based age checks for mature content.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 🛠️ Tech Stack
+*   **Frontend:** React.js (Hooks, Context API)
+*   **Styling:** Styled Components (CSS-in-JS)
+*   **Backend / Auth:** Firebase v9
+*   **Data Source:** Jikan API v4 (MyAnimeList), AniList API
+*   **Routing:** React Router v6
+*   **Icons:** Iconify
 
-### `npm run build`
+### 🏃‍♂️ How to Run Locally
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1.  **Clone the repository**
+    ```bash
+    git clone https://github.com/yourusername/animenexus.git
+    cd animenexus
+    ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2.  **Install dependencies**
+    ```bash
+    npm install
+    ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3.  **Configure Environment Variables**
+    Create a `.env` file in the root directory and add your Firebase credentials:
+    ```env
+    REACT_APP_FIREBASE_API_KEY=your_api_key
+    REACT_APP_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+    REACT_APP_FIREBASE_PROJECT_ID=your_project_id
+    REACT_APP_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
+    REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+    REACT_APP_FIREBASE_APP_ID=your_app_id
+    ```
 
-### `npm run eject`
+4.  **Start the development server**
+    ```bash
+    npm start
+    ```
+    Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<a name="español"></a>
+## 🚀 Sobre el Proyecto
+**AnimeNexus** es una aplicación web moderna y completa diseñada para fanáticos del anime. Ofrece una plataforma para descubrir películas, series de TV y explorar información detallada sobre personajes.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Construida pensando en el rendimiento y la estética, cuenta con **Modo Oscuro** personalizado, **protección de contenido NSFW** y una experiencia de usuario fluida impulsada por **React** y la **Jikan API (MyAnimeList)**.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### 📸 Capturas de Pantalla
+> *Añade tus capturas aquí*
+>
+> ![Página Principal](https://via.placeholder.com/800x400?text=Captura+Home)
+> *Sección Hero Interactiva y Listas de Tendencias*
 
-## Learn More
+### ✨ Características Principales
+*   **Autenticación:** Inicio de sesión y registro seguro usando **Firebase**.
+*   **Descubrimiento:** Busca y navega animes por popularidad, puntuación o próximos estrenos.
+*   **Contenido NSFW:** Secciones dedicadas y protegidas para mayores de 18 (Brutal Moments y Hot Characters) con clips de video.
+*   **Guía de Manga:** Guía inteligente para saber en qué capítulo del manga continúa el anime.
+*   **Diseño Responsivo:** Totalmente optimizado para móvil, tablet y escritorio.
+*   **Modo Oscuro:** Alternancia de temas para una visualización cómoda.
+*   **Verificación de Edad:** Chequeo de edad basado en sesión para contenido maduro.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 🛠️ Tecnologías Usadas
+*   **Frontend:** React.js (Hooks, Context API)
+*   **Estilos:** Styled Components (CSS-in-JS)
+*   **Backend / Auth:** Firebase v9
+*   **Fuente de Datos:** Jikan API v4 (MyAnimeList), AniList API
+*   **Enrutamiento:** React Router v6
+*   **Iconos:** Iconify
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 🏃‍♂️ Cómo Correrlo Localmente
 
-### Code Splitting
+1.  **Clonar el repositorio**
+    ```bash
+    git clone https://github.com/tuusuario/animenexus.git
+    cd animenexus
+    ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+2.  **Instalar dependencias**
+    ```bash
+    npm install
+    ```
 
-### Analyzing the Bundle Size
+3.  **Configurar Variables de Entorno**
+    Crea un archivo `.env` en la raíz del proyecto y añade tus credenciales de Firebase:
+    ```env
+    REACT_APP_FIREBASE_API_KEY=tu_api_key
+    REACT_APP_FIREBASE_AUTH_DOMAIN=tu_proyecto.firebaseapp.com
+    REACT_APP_FIREBASE_PROJECT_ID=tu_proyecto_id
+    REACT_APP_FIREBASE_STORAGE_BUCKET=tu_proyecto.appspot.com
+    REACT_APP_FIREBASE_MESSAGING_SENDER_ID=tu_sender_id
+    REACT_APP_FIREBASE_APP_ID=tu_app_id
+    ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+4.  **Iniciar el servidor de desarrollo**
+    ```bash
+    npm start
+    ```
+    Abre [http://localhost:3000](http://localhost:3000) en tu navegador.

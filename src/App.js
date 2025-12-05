@@ -1,37 +1,59 @@
-import { Routes, Route, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { Register } from "./components/Register";
-import { Login } from "./components/Login";
-import { Listado } from "./components/Listado";
-import { Header } from "./components/Header";
-import { Footer } from "./components/Footer";
-import { Detalle } from "./components/Detalle";
-import { Resultados } from "./components/Resultados";
-import { Favoritos } from "./components/Favoritos";
-import { Navigate } from "react-router-dom";
-import swal from "@sweetalert/with-react";
-import bootstrap from 'bootstrap';
-import Pagination from "./components/Pagination";
-import { AuthProvider } from "./components/Context/authContext";
+import { Routes, Route } from "react-router-dom";
+import { useState, useEffect, Suspense, lazy } from "react";
+import { Home } from "./components/Anime/Home";
+import { Header } from "./components/Common/Header";
+import { Toaster } from 'react-hot-toast';
+import { AuthProvider, useAuth } from "./components/Context/authContext";
+import { ThemeProvider } from 'styled-components';
+import { GlobalStyles } from './GlobalStyles';
+import { theme, lightTheme } from './theme';
+import { ProtectedRoute } from "./components/Shared/ProtectedRoute";
 import { Icon } from '@iconify/react';
-// Styles
-import "./css/app.css";
-import "./css/bootstrap.min.css";
-import "./css/glassmorphism.css";
-import { ProtectedRoute } from "./components/ProtectedRoute";
-import { useAuth } from "./components/Context/authContext";
-import { ResetPassword } from "./components/ResetPassword";
-import { PerfilUsuario } from "./components/PerfilUsuario";
-import { Recommendations } from "./components/Recommendations";
-import { HotCharacters } from "./components/HotCharacters";
-import { BrutalMoments } from "./components/BrutalMoments";
+
+// Lazy load components for performance
+const RegisterPage = lazy(() => import("./components/Auth/RegisterPage").then(module => ({ default: module.RegisterPage })));
+const LoginPage = lazy(() => import("./components/Auth/LoginPage").then(module => ({ default: module.LoginPage })));
+const AnimeDetails = lazy(() => import("./components/Anime/AnimeDetails").then(module => ({ default: module.AnimeDetails })));
+const SearchResults = lazy(() => import("./components/Anime/SearchResults").then(module => ({ default: module.SearchResults })));
+const Favorites = lazy(() => import("./components/Anime/Favorites").then(module => ({ default: module.Favorites })));
+const ResetPasswordPage = lazy(() => import("./components/Auth/ResetPasswordPage").then(module => ({ default: module.ResetPasswordPage })));
+const RecommendationsPage = lazy(() => import("./components/Media/RecommendationsPage").then(module => ({ default: module.RecommendationsPage })));
+const HotCharactersPage = lazy(() => import("./components/NSFW/HotCharactersPage").then(module => ({ default: module.HotCharactersPage })));
+const BrutalMomentsPage = lazy(() => import("./components/NSFW/BrutalMomentsPage").then(module => ({ default: module.BrutalMomentsPage })));
+const SoundtracksPage = lazy(() => import("./components/Media/SoundtracksPage").then(module => ({ default: module.SoundtracksPage })));
+const HiddenGemsPage = lazy(() => import("./components/Features/HiddenGemsPage").then(module => ({ default: module.HiddenGemsPage })));
+const SeasonsPage = lazy(() => import("./components/Features/SeasonsPage").then(module => ({ default: module.SeasonsPage })));
+const ComingSoonPage = lazy(() => import("./components/Features/ComingSoonPage").then(module => ({ default: module.ComingSoonPage })));
+const AnimeInCinemasPage = lazy(() => import("./components/Features/AnimeInCinemasPage").then(module => ({ default: module.AnimeInCinemasPage })));
+const GenrePage = lazy(() => import("./components/Anime/GenrePage").then(module => ({ default: module.GenrePage })));
+const HistoryPage = lazy(() => import("./components/Profile/HistoryPage").then(module => ({ default: module.HistoryPage })));
+const ProfilePage = lazy(() => import("./components/Profile/ProfilePage").then(module => ({ default: module.ProfilePage })));
+const MangaGuide = lazy(() => import("./components/Features/MangaGuide").then(module => ({ default: module.MangaGuide })));
+
+// Loading component
+const PageLoader = () => (
+  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
+    <Icon icon="eos-icons:loading" width="60" color="#00d4ff" />
+  </div>
+);
 
 const App = () => {
   const [favs, setFavs] = useState([]);
-  const [checked, setChecked] = useState(false);
   const { user, loading } = useAuth()
-  const [isLoading, setIsLoading] = useState(true);
   const [showContent, setShowContent] = useState([]);
+
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const saved = localStorage.getItem('darkMode');
+    return saved ? JSON.parse(saved) : true; // Default to dark mode
+  });
+
+  const toggleTheme = () => {
+    setIsDarkMode(prev => {
+      const newMode = !prev;
+      localStorage.setItem('darkMode', JSON.stringify(newMode));
+      return newMode;
+    });
+  };
 
   const handleToggleContent = (index) => {
     setShowContent((prevShowContent) => {
@@ -57,8 +79,6 @@ const App = () => {
     }
   }, [user, loading]);
 
-  const navigate = useNavigate();
-
   const addOrRemoveFromFavorites = (movieData) => (e) => {
     const favMovies = localStorage.getItem("favs");
     let tempMovie;
@@ -70,9 +90,7 @@ const App = () => {
     }
 
     let filterM = tempMovie.find((e) => {
-      {
-        return e.id === movieData.id;
-      }
+      return e.id === movieData.id;
     });
 
     if (!filterM) {
@@ -81,7 +99,6 @@ const App = () => {
       setFavs(tempMovie);
       localStorage.setItem("favId", movieData.id);
       console.log("movie added");
-      setChecked(true);
     } else {
       let moviesLeft = tempMovie.filter((e) => {
         return e.id !== movieData.id;
@@ -91,7 +108,6 @@ const App = () => {
       setFavs(moviesLeft);
       localStorage.removeItem("favId");
       console.log("movie deleted");
-      setChecked(false);
       if (!user) {
         localStorage.removeItem("favs");
         setFavs([]);
@@ -103,55 +119,70 @@ const App = () => {
     <>
       <div>
         <AuthProvider>
-          <Header favs={favs} />
+          <Toaster
+            position="top-right"
+            toastOptions={{
+              duration: 3000,
+              style: {
+                background: '#1f2937',
+                color: '#fff',
+                border: '1px solid #374151'
+              },
+            }}
+          />
+          <ThemeProvider theme={isDarkMode ? theme : lightTheme}>
+            <GlobalStyles />
+            <Header favs={favs} isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
 
-          <Routes>
-            <Route exact
-              path="/register" element={<Register />} />
-            <Route exact path="/login" element={<Login />} />
-            <Route
-              exact
-              path="/"
-              element={
-                <Listado
-                  favs={favs}
+            <Suspense fallback={<PageLoader />}>
+              <Routes>
+                <Route exact path="/register" element={<RegisterPage />} />
+                <Route exact path="/login" element={<LoginPage />} />
+                <Route
+                  exact
+                  path="/"
+                  element={
+                    <Home
+                      favs={favs}
+                      addOrRemoveFromFavorites={addOrRemoveFromFavorites}
+                      showContent={showContent} handleToggleContent={handleToggleContent}
+                    />
+                  }
+                />
+                <Route exact path="/detalle" element={<AnimeDetails favs={favs}
                   addOrRemoveFromFavorites={addOrRemoveFromFavorites}
-                  showContent={showContent} handleToggleContent={handleToggleContent}
-                />
-              }
-            />
-            <Route exact path="/detalle" element={<Detalle favs={favs}
-              addOrRemoveFromFavorites={addOrRemoveFromFavorites}
-              showContent={showContent} handleToggleContent={handleToggleContent} />} />
-            <Route exact path="/resultados" element={<Resultados favs={favs}
-              addOrRemoveFromFavorites={addOrRemoveFromFavorites}
-              showContent={showContent} handleToggleContent={handleToggleContent} />} />
-            <Route
-              exact
-              path="/favoritos"
-              element={
-                <Favoritos
-                  favs={favs}
+                  showContent={showContent} handleToggleContent={handleToggleContent} />} />
+                <Route exact path="/resultados" element={<SearchResults favs={favs}
                   addOrRemoveFromFavorites={addOrRemoveFromFavorites}
-                  showContent={showContent} handleToggleContent={handleToggleContent}
+                  showContent={showContent} handleToggleContent={handleToggleContent} />} />
+                <Route
+                  exact
+                  path="/favoritos"
+                  element={
+                    <Favorites
+                      favs={favs}
+                      addOrRemoveFromFavorites={addOrRemoveFromFavorites}
+                      showContent={showContent} handleToggleContent={handleToggleContent}
+                    />
+                  }
                 />
-              }
-            />   <Route
-              exact
-              path="/resetPassword"
-              element={
-                <ResetPassword
-                />
-              }
-            />
-            <Route exact path="/profile" element={<ProtectedRoute><PerfilUsuario /></ProtectedRoute>} />
-            <Route exact path="/recommendations" element={<Recommendations />} />
-            <Route exact path="/nsfw/hot-characters" element={<ProtectedRoute><HotCharacters /></ProtectedRoute>} />
-            <Route exact path="/nsfw/brutal-moments" element={<ProtectedRoute><BrutalMoments /></ProtectedRoute>} />
-
-          </Routes>
+                <Route exact path="/resetPassword" element={<ResetPasswordPage />} />
+                <Route path="/genre/:genre" element={<GenrePage favs={favs} addOrRemoveFromFavorites={addOrRemoveFromFavorites} />} />
+                <Route path="/history" element={<ProtectedRoute><HistoryPage /></ProtectedRoute>} />
+                <Route exact path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+                <Route exact path="/recommendations" element={<RecommendationsPage />} />
+                <Route exact path="/nsfw/hot-characters" element={<ProtectedRoute><HotCharactersPage /></ProtectedRoute>} />
+                <Route exact path="/nsfw/brutal-moments" element={<ProtectedRoute><BrutalMomentsPage /></ProtectedRoute>} />
+                <Route exact path="/manga-guide" element={<MangaGuide />} />
+                <Route exact path="/coming-soon" element={<ComingSoonPage />} />
+                <Route exact path="/cinemas" element={<AnimeInCinemasPage />} />
+                <Route path="/seasons/:malId" element={<SeasonsPage />} />
+                <Route path="/soundtracks/:malId" element={<SoundtracksPage />} />
+                <Route exact path="/hidden-gems" element={<HiddenGemsPage />} />
+              </Routes>
+            </Suspense>
+          </ThemeProvider>
         </AuthProvider>
-        {/*  <Footer /> */}
       </div>
     </>
   );
