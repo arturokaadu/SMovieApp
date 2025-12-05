@@ -29,6 +29,7 @@ const GenrePage = lazy(() => import("./components/Anime/GenrePage").then(module 
 const HistoryPage = lazy(() => import("./components/Profile/HistoryPage").then(module => ({ default: module.HistoryPage })));
 const ProfilePage = lazy(() => import("./components/Profile/ProfilePage").then(module => ({ default: module.ProfilePage })));
 const MangaGuide = lazy(() => import("./components/Features/MangaGuide").then(module => ({ default: module.MangaGuide })));
+const MoodExplorer = lazy(() => import("./components/Features/MoodExplorer").then(module => ({ default: module.MoodExplorer })));
 
 // Loading component
 const PageLoader = () => (
@@ -49,6 +50,7 @@ const App = () => {
 
   const toggleTheme = () => {
     setIsDarkMode(prev => {
+      console.log("Toggling theme. Previous:", prev, "New:", !prev);
       const newMode = !prev;
       localStorage.setItem('darkMode', JSON.stringify(newMode));
       return newMode;
@@ -179,6 +181,7 @@ const App = () => {
                 <Route path="/seasons/:malId" element={<SeasonsPage />} />
                 <Route path="/soundtracks/:malId" element={<SoundtracksPage />} />
                 <Route exact path="/hidden-gems" element={<HiddenGemsPage />} />
+                <Route exact path="/moods" element={<MoodExplorer />} />
               </Routes>
             </Suspense>
           </ThemeProvider>

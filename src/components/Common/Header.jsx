@@ -97,6 +97,9 @@ export const Header = ({ favs, isDarkMode, toggleTheme }) => {
                   <MenuLink to="/recommendations" style={{ color: '#34d399' }}>
                     <Icon icon="bi:gem" /> Hidden Gems
                   </MenuLink>
+                  <MenuLink to="/moods" style={{ color: '#ec4899' }}>
+                    <Icon icon="bi:emoji-smile-fill" /> Mood Explorer
+                  </MenuLink>
                 </div>
               </div>
             </DropdownMenu>

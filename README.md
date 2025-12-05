@@ -27,14 +27,19 @@ Built with performance and aesthetics in mind, it features a custom **Dark Mode*
 > ![Home Page](https://via.placeholder.com/800x400?text=Home+Page+Screenshot)
 > *Interactive Hero Section & Trending Lists*
 
-### ✨ Key Features
-*   **Authentication:** Secure login and registration using **Firstbase**.
-*   **Anime Discovery:** Search and browse anime by popularity, score, or upcoming releases.
-*   **NSFW Content:** Dedicated, 18+ age-gated sections for "Brutal Moments" and "Hot Characters" with video clips.
-*   **Manga Guide:** Smart guide to identify where the anime ends and the manga begins.
-*   **Responsive Design:** Fully optimized for mobile, tablet, and desktop.
-*   **Dark Mode:** Built-in theme toggler for comfortable viewing.
-*   **Age Verification:** Session-based age checks for mature content.
+### ✨ Key Features Overview
+
+| Feature | Description | Preview |
+| :--- | :--- | :--- |
+| **Mood Explorer** 😃 | **Don't know what to watch?** Tell us how you feel (Hype, Chill, Sad, etc.) and we'll recommend the perfect anime. | ![Mood Explorer](https://via.placeholder.com/300x150?text=Mood+Explorer+UI) |
+| **Direct Soundtracks** 🎵 | Listen to your favorite Openings & Endings directly. **One-click YouTube search** for instant gratification. | ![Soundtracks](https://via.placeholder.com/300x150?text=Soundtracks+UI) |
+| **NSFW Fanservice** 🔞 | **Age-Gated Content**. Curated "Brutal Moments" and "Hot Characters" with **video clips** (not just images). | ![NSFW Content](https://via.placeholder.com/300x150?text=NSFW+Clips+UI) |
+| **Manga Guide** 📖 | Smart guide that tells you **exactly where to start reading** the manga after the anime ends. | ![Manga Guide](https://via.placeholder.com/300x150?text=Manga+Guide+UI) |
+
+### 🛠️ Other Features
+*   **Authentication:** Secure login and registration.
+*   **Dark Mode:** Built-in theme toggler.
+*   **Responsive:** Works perfectly on mobile.
 
 ### 🛠️ Tech Stack
 *   **Frontend:** React.js (Hooks, Context API)
@@ -88,14 +93,19 @@ Construida pensando en el rendimiento y la estética, cuenta con **Modo Oscuro**
 > ![Página Principal](https://via.placeholder.com/800x400?text=Captura+Home)
 > *Sección Hero Interactiva y Listas de Tendencias*
 
-### ✨ Características Principales
-*   **Autenticación:** Inicio de sesión y registro seguro usando **Firebase**.
-*   **Descubrimiento:** Busca y navega animes por popularidad, puntuación o próximos estrenos.
-*   **Contenido NSFW:** Secciones dedicadas y protegidas para mayores de 18 (Brutal Moments y Hot Characters) con clips de video.
-*   **Guía de Manga:** Guía inteligente para saber en qué capítulo del manga continúa el anime.
-*   **Diseño Responsivo:** Totalmente optimizado para móvil, tablet y escritorio.
-*   **Modo Oscuro:** Alternancia de temas para una visualización cómoda.
-*   **Verificación de Edad:** Chequeo de edad basado en sesión para contenido maduro.
+### ✨ Key Features Overview
+
+| Feature | Description | Preview |
+| :--- | :--- | :--- |
+| **Mood Explorer** 😃 | **Don't know what to watch?** Tell us how you feel (Hype, Chill, Sad, etc.) and we'll recommend the perfect anime. | ![Mood Explorer](https://via.placeholder.com/300x150?text=Mood+Explorer+UI) |
+| **Direct Soundtracks** 🎵 | Listen to your favorite Openings & Endings directly. **One-click YouTube search** for instant gratification. | ![Soundtracks](https://via.placeholder.com/300x150?text=Soundtracks+UI) |
+| **NSFW Fanservice** 🔞 | **Age-Gated Content**. Curated "Brutal Moments" and "Hot Characters" with **video clips** (not just images). | ![NSFW Content](https://via.placeholder.com/300x150?text=NSFW+Clips+UI) |
+| **Manga Guide** 📖 | Smart guide that tells you **exactly where to start reading** the manga after the anime ends. | ![Manga Guide](https://via.placeholder.com/300x150?text=Manga+Guide+UI) |
+
+### 🛠️ Other Features
+*   **Authentication:** Secure login and registration.
+*   **Dark Mode:** Built-in theme toggler.
+*   **Responsive:** Works perfectly on mobile.
 
 ### 🛠️ Tecnologías Usadas
 *   **Frontend:** React.js (Hooks, Context API)

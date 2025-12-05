@@ -72,13 +72,15 @@ export const Soundtracks = ({ animeTitle, themes }) => {
                                                 <span className="badge bg-primary me-2">OP {index + 1}</span>
                                                 <small>{op}</small>
                                             </div>
-                                            <button
+                                            <a
                                                 className="btn btn-sm btn-outline-danger ms-2"
-                                                onClick={() => openYouTubeSearch(op)}
+                                                href={`https://www.youtube.com/results?search_query=${encodeURIComponent(op + " opening full")}`}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
                                                 title="Search on YouTube"
                                             >
                                                 <i className="bi bi-play-fill"></i>
-                                            </button>
+                                            </a>
                                         </li>
                                     ))}
                                     {themes.endings?.map((ed, index) => (
@@ -87,13 +89,15 @@ export const Soundtracks = ({ animeTitle, themes }) => {
                                                 <span className="badge bg-secondary me-2">ED {index + 1}</span>
                                                 <small>{ed}</small>
                                             </div>
-                                            <button
+                                            <a
                                                 className="btn btn-sm btn-outline-danger ms-2"
-                                                onClick={() => openYouTubeSearch(ed)}
+                                                href={`https://www.youtube.com/results?search_query=${encodeURIComponent(ed + " ending full")}`}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
                                                 title="Search on YouTube"
                                             >
                                                 <i className="bi bi-play-fill"></i>
-                                            </button>
+                                            </a>
                                         </li>
                                     ))}
                                 </ul>
