@@ -3,13 +3,12 @@
 [![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&style=flat-square)](https://reactjs.org/)
 [![Firebase](https://img.shields.io/badge/Firebase-Auth-FFCA28?logo=firebase&style=flat-square)](https://firebase.google.com/)
 [![Styled Components](https://img.shields.io/badge/Styled_Components-CSS_in_JS-DB7093?logo=styled-components&style=flat-square)](https://styled-components.com/)
-[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen?style=flat-square&logo=vercel)](https://animenexusapp-55u7j8rft-arturokaadus-projects.vercel.app/)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen?style=flat-square&logo=vercel)](https://animenexusapp.vercel.app/)
 
-[English](#english) | [Español](#español)
+![AnimeNexus Home](./assets/image.png)
 
----
+**🔗 Link to the page:** https://animenexusapp.vercel.app/
 
-<a name="english"></a>
 ## 🚀 About the Project
 **AnimeNexus** is a modern, feature-rich web application designed for anime enthusiasts. It provides a comprehensive platform to discover movies, TV series, and explore detailed character information.
 
@@ -20,12 +19,8 @@ Built with performance and aesthetics in mind, it features a custom **Dark Mode*
 > To experience the full app (including profile and NSFW sections), you can register a new account or use the test credentials:
 > - **Email:** `test@user.com` (or register your own)
 > - **Password:** `123456`
+> - **Deployment:** [Link to the page](https://animenexusapp.vercel.app/)
 
-### 📸 Screenshots
-> *Add your screenshots here*
->
-> ![Home Page](https://via.placeholder.com/800x400?text=Home+Page+Screenshot)
-> *Interactive Hero Section & Trending Lists*
 
 ### ✨ Key Features Overview
 
@@ -47,19 +42,6 @@ Built with performance and aesthetics in mind, it features a custom **Dark Mode*
 *   **Backend / Auth:** Firebase v9
 *   **Data Source:** Jikan API v4 (MyAnimeList), AniList API
 *   **Routing:** React Router v6
-*   **Icons:** Iconify
-
-### 🏃‍♂️ How to Run Locally
-
-1.  **Clone the repository**
-    ```bash
-    git clone https://github.com/yourusername/animenexus.git
-    cd animenexus
-    ```
-
-2.  **Install dependencies**
-    ```bash
-    npm install
     ```
 
 3.  **Configure Environment Variables**
@@ -88,10 +70,12 @@ Built with performance and aesthetics in mind, it features a custom **Dark Mode*
 Construida pensando en el rendimiento y la estética, cuenta con **Modo Oscuro** personalizado, **protección de contenido NSFW** y una experiencia de usuario fluida impulsada por **React** y la **Jikan API (MyAnimeList)**.
 
 ### 📸 Capturas de Pantalla
-> *Añade tus capturas aquí*
->
-> ![Página Principal](https://via.placeholder.com/800x400?text=Captura+Home)
-> *Sección Hero Interactiva y Listas de Tendencias*
+
+![Página Principal](./assets/image.png)
+
+**🔗 Link to the page:** https://animenexusapp.vercel.app/
+
+*Sección Hero Interactiva y Listas de Tendencias*
 
 ### ✨ Key Features Overview
 
